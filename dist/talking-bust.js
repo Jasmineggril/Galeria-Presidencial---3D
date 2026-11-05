@@ -2,7 +2,7 @@ import {createBust} from './busts.js';
 import {CATALOG} from './catalog.js';
 import {registerCatalogBusts} from './catalog-busts.js';
 registerCatalogBusts(CATALOG);
-export function speechPose(time,playing,energy=0){const phase=time%4.7;return {jaw:playing?Math.min(1,energy):0,blink:phase>4.48?Math.max(.05,Math.abs(phase-4.59)/.11):1,yaw:Math.sin(time*.55)*.075,nod:Math.sin(time*.83)*.025};}
+export function speechPose(time,playing,energy=0){const phase=((time%4.7)+4.7)%4.7;return {jaw:playing?Math.min(1,energy):0,blink:phase>4.48?Math.max(.05,Math.abs(phase-4.59)/.11):1,yaw:Math.sin(time*.55)*.075,nod:Math.sin(time*.83)*.025};}
 const meters=new WeakMap();let context;
 function meterFor(audio){if(!audio)return null;if(meters.has(audio))return meters.get(audio);try{context ||= new (window.AudioContext||window.webkitAudioContext)();const source=context.createMediaElementSource(audio),analyser=context.createAnalyser();analyser.fftSize=256;source.connect(analyser);analyser.connect(context.destination);const meter={analyser,data:new Uint8Array(analyser.fftSize)};meters.set(audio,meter);return meter;}catch{return null;}}
 export class TalkingBustView{

@@ -1,5 +1,6 @@
 /** Regras independentes da interface, compartilhadas pelo quiz 2D e XR. */
 export function createQuiz(questions) {
+ if(!Array.isArray(questions)) questions=[];
  let index=0, answers=[];
  return {
   get index(){return index;},get answers(){return [...answers];},
@@ -16,5 +17,7 @@ export function createQuiz(questions) {
  };
 }
 export function clampPosition(position,bounds={minX:-7.2,maxX:7.2,minZ:-16,maxZ:7.2}){
+ if(!bounds) bounds={minX:-7.2,maxX:7.2,minZ:-16,maxZ:7.2};
+ if(!position) return {x:0,y:0,z:0};
  return {x:Math.max(bounds.minX,Math.min(bounds.maxX,position.x)),y:position.y,z:Math.max(bounds.minZ,Math.min(bounds.maxZ,position.z))};
 }
