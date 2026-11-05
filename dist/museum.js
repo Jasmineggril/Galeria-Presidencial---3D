@@ -6,9 +6,11 @@ import {registerCatalogBusts} from './catalog-busts.js';
 import {getBustReference} from './bustos-referencias/bustos.js';
 import {AudioGuide} from './recorded-narrator.js';
 import {createQuiz} from './model.js';
+import {AVATAR_OPTIONS,loadAvatar,saveAvatar,clearAvatar,normalizeAvatar,renderAvatarPreview,avatarSummary} from './avatar.js';
+import {backendConfig,isGuestMode,loadSession,saveSession,clearSession,signUp,signIn,signOut,requestPasswordReset,currentAccountLabel} from './account.js';
 import {initializeScene,switchRoom,goTo,goHome,setMovement,isXR,showXRDetail,showXRQuiz,closeXR,enterXR,supportsXR,toggleFullscreen,rotateBust,resetBust,showXRNarration} from './scene.js';
 const $=id=>document.getElementById(id),visited=new Set();
-let recordings={};let detailAvatar=null,bustReferenceRequest=0;
+let recordings={};let detailAvatar=null,bustReferenceRequest=0;let currentAvatar=loadAvatar();
 const recordingsReady=fetch('assets/audio/manifest.json').then(r=>{if(!r.ok)throw Error('Manifest unavailable');return r.json();}).then(d=>{recordings=d.recordings||{};renderCollection();}).catch(()=>{});
 let detailRequest=0;
 let activeRoom=1,ready=false,entered=false,current=null,viewIndex=-1,toastTimer,loadTimeout,quiz=createQuiz(GENERAL_QUESTIONS),quizLabel='Revisão geral';
@@ -31,6 +33,37 @@ function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTi
 function members(id){return CATALOG.filter(p=>p.room===id).map((p,i)=>{const left=i%2===0,z=2-Math.floor(i/2)*3;return {...p,era:room(id).title,image:p.image||'assets/studies/'+p.id+'.webp',model:'url(assets/busts/'+p.id+'.glb)',position:[left?-8.72:8.72,2.55,z],rotation:left?90:-90,view:[left?-4.7:4.7,0,z],heading:left?90:-90,milestone:p.years,detail:p.regime+' · '+p.accession};});}
 registerCatalogBusts(CATALOG);
 function progress(){ $('visited-count').textContent=visited.size+' de '+CATALOG.length;document.querySelectorAll('[data-record]').forEach(n=>{n.dataset.visited=String(visited.has(n.dataset.record));}); }
+function optionGroup(container,labelText,group,field,selected){
+  const wrapper=document.createElement('div');wrapper.className='option-group-wrapper';
+  const label=document.createElement('span');label.textContent=labelText;label.className='eyebrow';wrapper.append(label);
+  const groupEl=document.createElement('div');groupEl.className='option-group';
+  AVATAR_OPTIONS[group].forEach(option=>{
+    const chip=document.createElement('button');chip.type='button';chip.className='option-chip'+(option.id===selected?' active':'');chip.textContent=option.label;chip.dataset.value=option.id;
+    chip.onclick=()=>{currentAvatar[field]=option.id;refreshAvatarForm();};
+    groupEl.append(chip);
+  });
+  wrapper.append(groupEl);container.append(wrapper);
+}
+function buildAvatarForm(){
+  const form=$('avatar-form');form.replaceChildren();
+  const name=document.createElement('label');name.textContent='Nome de exibição';const input=document.createElement('input');input.type='text';input.value=currentAvatar.displayName;input.maxLength=24;input.oninput=()=>{currentAvatar.displayName=input.value;};name.append(input);form.append(name);
+  optionGroup(form,'Tom de pele','skinTones','skinTone',currentAvatar.skinTone);
+  optionGroup(form,'Penteado','hairStyles','hairStyle',currentAvatar.hairStyle);
+  optionGroup(form,'Cor do cabelo','hairColors','hairColor',currentAvatar.hairColor);
+  optionGroup(form,'Roupa','outfits','outfit',currentAvatar.outfit);
+  optionGroup(form,'Cor da roupa','outfitColors','outfitColor',currentAvatar.outfitColor);
+  optionGroup(form,'Calçado','shoes','shoes',currentAvatar.shoes);
+  optionGroup(form,'Acessório','accessories','accessory',currentAvatar.accessory);
+  refreshAvatarPreview();
+}
+function refreshAvatarForm(){buildAvatarForm();}
+function refreshAvatarPreview(){renderAvatarPreview($('avatar-preview'),currentAvatar);$('avatar-status').textContent=avatarSummary(currentAvatar);}
+function openAvatar(){currentAvatar=loadAvatar();buildAvatarForm();openDialog($('avatar-dialog'));}
+function openAccount(){
+  const mode=$('account-mode');mode.textContent=currentAccountLabel()+' · '+(isGuestMode()?'Sem backend configurado: modo convidado.':'Backend configurado.');
+  $('account-status').textContent=isGuestMode()?'Cadastro e login reais requerem backend. O progresso local do convidado permanece neste dispositivo.':'Informe e-mail e senha para entrar ou cadastrar.';
+  openDialog($('account-dialog'));
+}
 function openDialog(d){document.querySelectorAll('dialog[open]').forEach(x=>{if(x!==d)x.close();});setMovement(false);if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});if(!d.open)d.showModal();}
 for(const d of document.querySelectorAll('dialog')){d.querySelector('[data-close]').onclick=()=>d.close();d.addEventListener('close',()=>{detailAvatar?.destroy();detailAvatar=null;narrator.stop();if(d.id==='detail-dialog'){bustReferenceRequest++;bustReferenceDisplay.replaceChildren();bustReferenceStatus.textContent='A referência visual ainda não foi carregada.';}if(entered)setMovement(true);});d.addEventListener('click',e=>{if(e.target===d){const b=d.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)d.close();}});}
 const narrator=new AudioGuide({onChange:s=>{
@@ -92,6 +125,13 @@ for(const [id,delta] of [['prev-view',-1],['next-view',1]])$(id).onclick=()=>{co
 $('narrate-play').onclick=()=>narrator.play();$('narrate-pause').onclick=()=>narrator.pause();$('narrate-restart').onclick=()=>narrator.restart();$('narrate-stop').onclick=()=>narrator.stop();$('dock-stop').onclick=()=>narrator.stop();
 $('next-panel').onclick=()=>openDetail(CATALOG[(CATALOG.indexOf(current)+1)%CATALOG.length].id);$('previous-panel').onclick=()=>openDetail(CATALOG[(CATALOG.indexOf(current)+CATALOG.length-1)%CATALOG.length].id);
 $('start-quiz').onclick=()=>startQuiz('room');$('general-quiz').onclick=()=>startQuiz('all');$('quiz-next').onclick=nextQuiz;$('quiz-back').onclick=()=>$('quiz-dialog').close();$('sources-button').onclick=showSources;$('footer-credits').onclick=showSources;$('about-button').onclick=showAbout;
+$('avatar-button').onclick=openAvatar;$('account-button').onclick=openAccount;
+$('avatar-save').onclick=()=>{currentAvatar=saveAvatar(currentAvatar);refreshAvatarPreview();toast('Aparência salva neste dispositivo.');$('avatar-dialog').close();};
+$('avatar-reset').onclick=()=>{currentAvatar=clearAvatar();buildAvatarForm();toast('Aparência restaurada.');};
+$('account-signup').onclick=async()=>{const result=await signUp({name:$('account-name').value,email:$('account-email').value,password:$('account-password').value});$('account-status').textContent=result.message||'Operação concluída.';if(result.ok){saveSession(result.session);openAccount();}};
+$('account-signin').onclick=async()=>{const result=await signIn({email:$('account-email').value,password:$('account-password').value});$('account-status').textContent=result.message||'Operação concluída.';if(result.ok)openAccount();};
+$('account-signout').onclick=async()=>{await signOut();$('account-status').textContent='Sessão encerrada.';openAccount();};
+$('account-reset').onclick=async()=>{const result=await requestPasswordReset($('account-email').value);$('account-status').textContent=result.message||'Operação concluída.';};
 function failed(reason){clearTimeout(loadTimeout);$('scene-fallback').hidden=false;$('fallback-reason').textContent=reason;$('gallery-status').textContent='ACERVO ACESSÍVEL EM TEXTO';$('entry-overlay').hidden=true;}
 renderRooms();renderCollection();loadTimeout=setTimeout(()=>{if(!ready)failed('A sala 3D está demorando para carregar. Continue pelo acervo em texto.');},25000);
 initializeScene({ready(){ready=true;clearTimeout(loadTimeout);$('scene-fallback').hidden=true;$('gallery-status').textContent='GALERIA 3D · SALA 01';$('enter-button').disabled=false;$('enter-button').textContent='Entrar no museu →';setMovement(false);},error:failed,detail:openDetail,quiz:()=>startQuiz('room'),room:delta=>changeRoom(((activeRoom-1+delta+6)%6)+1),narrate:p=>{current=find(p.id);narrator.load(current.narration,recordings[current.id]);narrator.play();},location:p=>{$('current-location').textContent=p?p.name:room(activeRoom).title;},xr:active=>{narrator.stop();if(active){document.querySelectorAll('dialog[open]').forEach(d=>d.close());$('onboarding').hidden=true;}else if(entered)setMovement(true);}},members(1),{...room(1),name:room(1).title});

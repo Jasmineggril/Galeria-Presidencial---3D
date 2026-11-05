@@ -12,3 +12,16 @@
 
 .talking-stage[hidden]{display:none}#detail-avatar{height:300px;min-height:260px;}
 .bust-reference-panel{margin:20px 0;padding:16px;background:#eee9dc;border:1px solid #d5cfbf}.bust-reference-panel h3{font:22px Georgia;margin:12px 0}.bust-reference-status,.bust-reference-note{font-size:11px!important;line-height:1.6!important;color:#667064}.bust-reference-display{min-height:20px}.bust-reference-canvas{display:block;width:min(100%,360px);height:auto;margin:12px auto;border:1px solid #c8c0ae}.bust-reference-note{margin-bottom:0}
+
+.avatar-preview{display:flex;justify-content:center;margin:1rem 0;}
+.avatar-preview svg{width:160px;height:220px;border:1px solid #b8a98a;border-radius:12px;background:#efe8d8;}
+.avatar-form{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.75rem;margin:1rem 0;}
+.avatar-form label{display:flex;flex-direction:column;gap:.35rem;font-size:.9rem;}
+.avatar-form input,.avatar-form select{padding:.55rem;border:1px solid #b8a98a;border-radius:8px;font:inherit;background:#fff;}
+.avatar-form .option-group{display:flex;flex-wrap:wrap;gap:.4rem;}
+.avatar-form .option-chip{padding:.4rem .6rem;border:1px solid #b8a98a;border-radius:999px;background:#fff;cursor:pointer;font-size:.85rem;}
+.avatar-form .option-chip.active{background:#233e34;color:#fff;border-color:#233e34;}
+
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
+button,.tool-button,.quiz-option{min-height:44px;}
+:focus-visible{outline:3px solid #ad915e;outline-offset:2px;}

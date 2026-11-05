@@ -95,3 +95,12 @@ Download em duas partes: extraia Galeria_Presidencial_Prototipo.zip e Galeria_Pr
 
 ## Personagem animado do Lula — 03/11/2026
 Personagem estilizado na ficha de Lula e no piloto: piscar, movimento de cabeça e abertura de boca guiada pela amplitude do áudio usando Web Audio. Three.js via A-Frame local para versão 3D; SVG animado como alternativa sem WebGL. Não é reconstrução facial nem sincronização de fonemas. Este personagem representa Lula, não a pessoa visitante; um avatar personalizável de visitante e a circulação em terceira pessoa continuam pendentes.
+
+
+## Avatar, contas e administracao (atualizacao)
+
+- Personalizacao de avatar do visitante disponivel em Personalizar avatar.
+- Contas e sincronizacao via provedor configurado; sem backend, apenas modo convidado.
+- Area administrativa demonstrativa em dist/admin.html.
+- Esquema SQL e variaveis em docs/backend-schema.sql e docs/env.example.
+- Cobertura dos 36 presidentes em docs/coverage-36.md.
