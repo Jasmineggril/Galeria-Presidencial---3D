@@ -25,3 +25,7 @@
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important;}}
 button,.tool-button,.quiz-option{min-height:44px;}
 :focus-visible{outline:3px solid #ad915e;outline-offset:2px;}
+
+.mobile-pad{position:fixed;left:1rem;bottom:1rem;display:grid;gap:.4rem;z-index:30;touch-action:none;}
+.mobile-pad button{min-width:48px;min-height:48px;border-radius:999px;border:1px solid #b8a98a;background:rgba(243,238,224,.9);font-size:1.1rem;}
+.mobile-pad div{display:flex;gap:.4rem;}

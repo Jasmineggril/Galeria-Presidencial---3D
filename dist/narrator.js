@@ -1,13 +1,13 @@
 /** One active synthetic educational narration. No voice cloning or server requests. */
 export class Narrator {
- constructor({engine=globalThis.speechSynthesis,Utterance=globalThis.SpeechSynthesisUtterance,onChange=()=>{}}={}){Object.assign(this,{engine,Utterance,onChange});this.state='idle';this.index=0;this.parts=[];this.token=0;}
+ constructor({engine=globalThis.speechSynthesis,Utterance=globalThis.SpeechSynthesisUtterance,onChange=()=>{},volume=1}={}){Object.assign(this,{engine,Utterance,onChange});this.state='idle';this.index=0;this.parts=[];this.token=0;this.volume=Math.max(0,Math.min(1,Number(volume)||1));}
  get available(){return !!this.engine&&!!this.Utterance;}
- snapshot(){return {state:this.state,index:this.index,parts:[...this.parts],caption:this.parts[this.index]||'',available:this.available};}
+ snapshot(){return {state:this.state,index:this.index,parts:[...this.parts],caption:this.parts[this.index]||'',available:this.available,volume:this.volume};}
  emit(){this.onChange(this.snapshot());}
  load(text){this.stop();this.parts=(text?String(text).match(/[^.!?]+[.!?]+|[^.!?]+$/g):null)?.map(s=>s.trim()).filter(Boolean)||[];this.index=0;this.emit();}
  play(){if(!this.available){this.state='unavailable';this.emit();return false;}if(this.state==='paused'){this.engine.resume();this.state='playing';this.emit();return true;}if(this.state==='playing')return true;if(this.index>=this.parts.length)this.index=0;this.state='playing';this.speak();return true;}
- speak(){if(this.index>=this.parts.length){this.state='ended';this.emit();return;}const token=++this.token;const u=new this.Utterance(this.parts[this.index]);u.lang='pt-BR';u.rate=.94;const voices=this.engine.getVoices?.()||[];u.voice=voices.find(v=>v.lang.toLowerCase()==='pt-br')||voices.find(v=>v.lang.toLowerCase().startsWith('pt'))||null;u.onend=()=>{if(token!==this.token)return;this.index++;this.speak();};u.onerror=e=>{if(token!==this.token||e.error==='canceled'||e.error==='interrupted')return;this.state='error';this.emit();};this.emit();this.engine.speak(u);}
+ speak(){if(this.index>=this.parts.length){this.state='ended';this.emit();return;}const token=++this.token;const u=new this.Utterance(this.parts[this.index]);u.lang='pt-BR';u.rate=.94;u.volume=this.volume;const voices=this.engine.getVoices?.()||[];u.voice=voices.find(v=>v.lang.toLowerCase()==='pt-br')||voices.find(v=>v.lang.toLowerCase().startsWith('pt'))||null;u.onend=()=>{if(token!==this.token)return;this.index++;this.speak();};u.onerror=e=>{if(token!==this.token||e.error==='canceled'||e.error==='interrupted')return;this.state='error';this.emit();};this.emit();this.engine.speak(u);}
  pause(){if(this.state!=='playing')return;if(this.engine?.pause)this.engine.pause();this.state='paused';this.emit();}
  restart(){this.stop();this.index=0;return this.play();}
- stop(){this.token++;this.engine?.cancel();this.state='idle';this.index=0;this.emit();}
+ setVolume(value){this.volume=Math.max(0,Math.min(1,Number(value)||0));return this.volume;} stop(){this.token++;this.engine?.cancel();this.state='idle';this.index=0;this.emit();}
 }

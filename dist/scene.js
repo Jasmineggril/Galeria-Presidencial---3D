@@ -129,7 +129,11 @@ export function initializeScene(handlers,members=INITIAL_PRESIDENTS,room=null){
  // Portrait assets are installed per active room inside buildExhibition.
  buildExhibition();
  rig=entity('a-entity',{id:'camera-rig',position:'0 0 6.7'},scene);
- camera=entity('a-camera',{id:'visitor-camera',position:'0 1.65 0','look-controls':'pointerLockEnabled: false; touchEnabled: true','wasd-controls':'acceleration: 16','gp-bounds':''},rig);
+  camera=entity('a-camera',{id:'visitor-camera',position:'0 2.0 -3.5',rotation:'15 0 0','look-controls':'pointerLockEnabled: false; touchEnabled: true','wasd-controls':'acceleration: 16','gp-bounds':''},rig);
+  const visitorAvatar=entity('a-entity',{id:'visitor-avatar',position:'0 -2.0 3.5'},camera);
+  entity('a-cylinder',{position:'0 0.9 0',radius:0.35,height:1.8,color:'#233e34'},visitorAvatar);
+  entity('a-sphere',{position:'0 2.0 0',radius:0.32,color:'#c99a73'},visitorAvatar);
+  entity('a-box',{position:'0 0.15 0',width:0.5,height:0.12,depth:0.7,color:'#3a2a1a'},visitorAvatar);
  entity('a-entity',{id:'mouse-cursor',cursor:'rayOrigin: mouse; fuse: false',raycaster:'objects: .gp-interactive; far: 24'},scene);
  entity('a-entity',{'laser-controls':'hand: right; model: false',raycaster:'objects: .gp-interactive; far: 24; lineColor: #c9af76'},rig);
  entity('a-entity',{'laser-controls':'hand: left; model: false',raycaster:'objects: .gp-interactive; far: 24; lineColor: #c9af76'},rig);
@@ -150,7 +154,7 @@ export function goHome(){goTo(null);}
 export function goTo(id){
  if(!rig||!camera)return false;
  closeXR();const p=PRESIDENTS.find(p=>p.id===id),point=p?p.view:[0,0,6.7],yaw=p?p.heading:0;
- rig.setAttribute('position',point.join(' '));rig.setAttribute('rotation',`0 ${yaw} 0`);camera.setAttribute('position','0 1.65 0');
+ rig.setAttribute('position',point.join(' '));rig.setAttribute('rotation',`0 ${yaw} 0`);camera.setAttribute('position','0 2.0 -3.5');camera.setAttribute('rotation','15 0 0');
  const look=camera.components['look-controls'];if(look&&!isXR()){look.yawObject.rotation.y=0;look.pitchObject.rotation.x=0;}
  selectedBust=p?.id||null;callbacks.location(p||null);return true;
 }
