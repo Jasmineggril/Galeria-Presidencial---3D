@@ -110,7 +110,7 @@ export const CATALOG=raw.map(([id,name,short,years,room,military,accession,path,
  if(id==='mazzilli')regime='Interinidade constitucional em 1961; transição após o golpe em 1964';
  const sentences=narration.split(/(?<=[.!?])\s+/);
  const summary=sentences.slice(0,3).join(' ');
- return {id,name,short,years,room,relatedRooms:id==='vargas'?[3,4]:id==='mazzilli'?[4,5]:[room],era,regime,accession,military,isMilitary:military.startsWith('Militar'),summary,narration,source:path.startsWith('https:')?path:BASE+path,sourceName:path.includes('presidentes.an.gov.br')?'Arquivo Nacional':'Biblioteca da Presidência da República',extraSources:supplementary[id]||[],image:PUBLIC_PORTRAITS[id]?.localPath||images[id]||null,portraitCredit:PUBLIC_PORTRAITS[id]||null,initials:name.split(' ').filter(w=>w.length>2).slice(0,2).map(w=>w[0]).join(''),order:index+1,provisional:true,narrationNotice:NARRATION_NOTICE};
+ return {id,name,short,years,room,relatedRooms:id==='vargas'?[3,4]:id==='mazzilli'?[4,5]:[room],era,regime,accession,military,isMilitary:military.startsWith('Militar'),summary,narration,source:path.startsWith('https:')?path:BASE+path,sourceName:path.includes('presidentes.an.gov.br')?'Arquivo Nacional':'Biblioteca da Presidência da República',sourceAccessed:'2026-11-02',sourceUse:'Biografia, mandatos e contexto histórico do presidente',extraSources:supplementary[id]||[],image:PUBLIC_PORTRAITS[id]?.localPath||images[id]||null,portraitCredit:PUBLIC_PORTRAITS[id]||null,initials:name.split(' ').filter(w=>w.length>2).slice(0,2).map(w=>w[0]).join(''),order:index+1,provisional:true,narrationNotice:NARRATION_NOTICE};
 });
 
 export const SPECIALS=[
