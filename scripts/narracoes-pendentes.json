@@ -1,0 +1,126 @@
+{
+  "updatedAt": "2026-11-03",
+  "total": 36,
+  "recorded": 19,
+  "pending": [
+    {
+      "id": "cafe",
+      "name": "Café Filho",
+      "characters": 474,
+      "text": "Sou Café Filho. Fui eleito vice-presidente e assumi a Presidência depois do suicídio de Getúlio Vargas, em agosto de 1954. Meu governo enfrentou dificuldades econômicas e buscou conter a inflação. A eleição de 1955, vencida por Juscelino Kubitschek, ocorreu em meio a fortes disputas políticas e militares. Afastei-me do cargo por motivo de saúde e não retornei à Presidência. A crise sucessória levou às breves passagens de Carlos Luz e Nereu Ramos até a posse dos eleitos.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Cafe_Filho/biografia-completa"
+    },
+    {
+      "id": "dutra",
+      "name": "Eurico Gaspar Dutra",
+      "characters": 589,
+      "text": "Sou Eurico Gaspar Dutra, militar eleito pelo voto direto para governar entre 1946 e 1951. Durante meu mandato foi promulgada a Constituição de 1946, que restabeleceu instituições democráticas após o Estado Novo. A Guerra Fria influenciou a política externa e interna. O governo rompeu relações com a União Soviética e reprimiu atividades comunistas e sindicais. O Plano Salte buscou orientar investimentos em saúde, alimentação, transporte e energia. Esse período mostra que a retomada constitucional conviveu com restrições políticas, conflitos trabalhistas e desafios de desenvolvimento.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Dutra/biografia-completa"
+    },
+    {
+      "id": "linhares",
+      "name": "José Linhares",
+      "characters": 475,
+      "text": "Sou José Linhares. Como presidente do Supremo Tribunal Federal, assumi provisoriamente a Presidência após a deposição de Getúlio Vargas, em outubro de 1945. Meu governo conduziu a transição e as eleições de dezembro daquele ano, que escolheram presidente e representantes para a Assembleia Constituinte. Permaneci até janeiro de 1946, quando Eurico Gaspar Dutra tomou posse. Esse período breve ajuda a compreender a passagem do Estado Novo para uma nova ordem constitucional.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Linhares/biografia-completa"
+    },
+    {
+      "id": "vargas",
+      "name": "Getúlio Vargas",
+      "characters": 536,
+      "text": "Sou Getúlio Vargas. Cheguei ao poder em 1930 e chefiei um governo provisório. Fui eleito indiretamente em 1934, mas em 1937 estabeleci a ditadura do Estado Novo, com censura e repressão. A industrialização e a legislação trabalhista também marcaram esse período, incluindo a CLT. Fui deposto em 1945 e voltei à Presidência pelo voto direto em 1951. Nesse segundo governo foi criada a Petrobras. Uma grave crise política antecedeu meu suicídio em 1954. É essencial distinguir meus diferentes períodos e suas formas de exercício do poder.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Vargas/biografia-completa"
+    },
+    {
+      "id": "washington",
+      "name": "Washington Luís",
+      "characters": 534,
+      "text": "Sou Washington Luís, presidente de 1926 a 1930. Meu governo destacou a construção de estradas e enfrentou os efeitos da crise econômica mundial iniciada em 1929, que atingiu as exportações de café. A sucessão presidencial dividiu alianças entre as elites estaduais. Apoiei Júlio Prestes, vencedor da eleição de 1930, mas opositores contestaram o processo e organizaram uma ruptura armada. Fui deposto em outubro daquele ano. Uma junta governativa assumiu brevemente antes da chegada de Getúlio Vargas, encerrando a Primeira República.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Washington/biografia-completa"
+    },
+    {
+      "id": "bernardes",
+      "name": "Artur Bernardes",
+      "characters": 522,
+      "text": "Sou Artur Bernardes e governei o Brasil entre 1922 e 1926. Minha eleição ocorreu em meio a conflitos com setores militares e a uma campanha marcada por acusações e cartas falsas. Durante o mandato, enfrentei levantes tenentistas, incluindo a revolta de 1924 e o avanço da Coluna Prestes. Grande parte do governo transcorreu sob estado de sítio, com restrições a direitos e repressão. A crise revelava os limites da ordem oligárquica e a dificuldade das instituições em responder às demandas sociais e políticas do período.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Bernardes/biografia-completa"
+    },
+    {
+      "id": "epitacio",
+      "name": "Epitácio Pessoa",
+      "characters": 527,
+      "text": "Sou Epitácio Pessoa, jurista e presidente de 1919 a 1922. Fui eleito após a morte de Rodrigues Alves, durante uma viagem à Europa. Meu governo realizou obras de infraestrutura e buscou enfrentar problemas regionais, incluindo os efeitos das secas no Nordeste. Ao mesmo tempo, aumentaram as tensões entre civis e militares e as disputas em torno da sucessão presidencial. A revolta dos Dezoito do Forte, em 1922, expressou parte dessa crise. O país vivia mudanças sociais e culturais que desafiavam a ordem política oligárquica.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Epitacio/biografia-completa"
+    },
+    {
+      "id": "delfim",
+      "name": "Delfim Moreira",
+      "characters": 421,
+      "text": "Sou Delfim Moreira. Fui eleito vice-presidente em 1918 e assumi porque Rodrigues Alves estava doente e não pôde tomar posse. Após sua morte, permaneci no cargo até a realização de uma nova eleição presidencial. Governei entre 1918 e 1919, em um contexto de crise sanitária e conflitos trabalhistas. Meu período foi breve e também marcado por problemas de saúde. Epitácio Pessoa foi eleito e assumiu a Presidência em 1919.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Delfim%20Moreira/biografia-completa"
+    },
+    {
+      "id": "venceslau",
+      "name": "Venceslau Brás",
+      "characters": 541,
+      "text": "Sou Venceslau Brás e fui presidente de 1914 a 1918. Meu mandato coincidiu com a Primeira Guerra Mundial, que alterou o comércio e a economia brasileira. Em 1917, o Brasil entrou no conflito contra a Alemanha. O período teve expansão de atividades industriais, mas também inflação, dificuldades de abastecimento e mobilizações de trabalhadores, como as greves de 1917. A Guerra do Contestado terminou durante meu governo, após violenta repressão. Em 1918, a epidemia de gripe agravou os problemas de saúde e as condições de vida da população.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Wenceslau/biografia-completa"
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes da Fonseca",
+      "characters": 565,
+      "text": "Sou Hermes da Fonseca, militar e presidente entre 1910 e 1914. Fui eleito em uma disputa contra Rui Barbosa, conhecida pela campanha civilista. Meu governo realizou intervenções nos estados, chamadas de política das salvações, que alteraram alianças e disputas regionais. Logo no início do mandato ocorreu a Revolta da Chibata, contra os castigos físicos na Marinha. O período também reuniu conflitos sociais e resistência ao poder das elites. Minha origem militar não deve ser confundida com uma classificação automática de todos os governos militares como iguais.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/hermesfonseca/biografia-completa"
+    },
+    {
+      "id": "nilo",
+      "name": "Nilo Peçanha",
+      "characters": 569,
+      "text": "Sou Nilo Peçanha. Assumi a Presidência em 1909, após a morte de Afonso Pena, e permaneci até 1910. Meu breve governo está ligado à criação das Escolas de Aprendizes Artífices, um marco da educação profissional federal. Também enfrentei disputas entre oligarquias e uma campanha presidencial acirrada entre Hermes da Fonseca e Rui Barbosa. Minha trajetória deve ser observada no contexto das desigualdades e do racismo da sociedade brasileira. A expansão do ensino profissional não eliminou a exclusão social nem as limitações da participação política naquela República.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Nilo/biografia-completa"
+    },
+    {
+      "id": "afonso",
+      "name": "Afonso Pena",
+      "characters": 570,
+      "text": "Sou Afonso Pena, advogado e presidente de 1906 a 1909. Meu governo incentivou a expansão das ferrovias, o reaparelhamento dos portos e a circulação de produtos. A economia dependia fortemente das exportações agrícolas, especialmente do café, e o Estado interveio para apoiar esse setor. As decisões refletiam disputas entre interesses regionais e grupos produtores. O desenvolvimento da infraestrutura convivia com desigualdades e participação política restrita. Morri antes de concluir o mandato, e o vice-presidente Nilo Peçanha assumiu a Presidência em junho de 1909.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Affonso/biografia-completa"
+    },
+    {
+      "id": "rodrigues",
+      "name": "Rodrigues Alves",
+      "characters": 534,
+      "text": "Sou Rodrigues Alves e governei entre 1902 e 1906. Meu mandato ficou associado às reformas urbanas e sanitárias do Rio de Janeiro, então capital federal. Obras e campanhas de saúde transformaram a cidade, mas remoções e imposições atingiram especialmente a população pobre. A Revolta da Vacina, em 1904, deve ser entendida nesse contexto de tensão social. Fui eleito novamente em 1918, porém não tomei posse por motivo de doença. Meu vice, Delfim Moreira, assumiu. Meu busto representa uma pessoa, sem duplicar governos que não exerci.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/RodriguesAlves/biografia-completa"
+    },
+    {
+      "id": "campos",
+      "name": "Campos Sales",
+      "characters": 582,
+      "text": "Sou Campos Sales, advogado e presidente entre 1898 e 1902. Meu governo procurou reorganizar as finanças públicas e renegociar a dívida externa. Para sustentar o poder federal, articulei a política dos governadores, apoiada em acordos com dirigentes estaduais. Essa organização fortaleceu as oligarquias e restringiu a competição política. As medidas de ajuste econômico tiveram custos sociais e enfrentaram críticas. A estabilidade construída entre os grupos dominantes não significava uma democracia aberta: muitos brasileiros continuavam excluídos do voto e das decisões públicas.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/campossalles/biografia-completa"
+    },
+    {
+      "id": "prudente",
+      "name": "Prudente de Morais",
+      "characters": 538,
+      "text": "Sou Prudente de Morais, advogado e primeiro presidente civil da República. Fui eleito e governei de 1894 a 1898, quando as oligarquias agrícolas ampliavam sua influência sobre o Estado. Meu governo buscou reduzir conflitos herdados dos primeiros anos republicanos, mas também foi marcado pela Guerra de Canudos. Expedições militares destruíram a comunidade de Canudos, no sertão baiano, com grande violência. Ao conhecer esse período, observe tanto as disputas entre elites quanto a exclusão de grande parte da população da vida política.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/prudente/biografia-completa"
+    },
+    {
+      "id": "floriano",
+      "name": "Floriano Peixoto",
+      "characters": 532,
+      "text": "Sou Floriano Peixoto. Assumi a Presidência em 1891, como vice-presidente, depois da renúncia de Deodoro da Fonseca. Meu governo pertence ao período conhecido como República da Espada. Enfrentei a Revolta da Armada e a Revolução Federalista, conflitos que revelaram fortes disputas sobre o rumo do novo regime. A repressão e a concentração de poder também marcaram esses anos. A República ainda tinha participação eleitoral limitada. Em 1894, transmiti o cargo a Prudente de Morais, primeiro civil a ocupar a Presidência republicana.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Floriano/biografia-completa"
+    },
+    {
+      "id": "deodoro",
+      "name": "Deodoro da Fonseca",
+      "characters": 560,
+      "text": "Sou Deodoro da Fonseca, militar e primeiro presidente da República brasileira. Em novembro de 1889, liderei o movimento que encerrou a Monarquia e passei a chefiar o governo provisório. Em 1891, uma Constituição estabeleceu o federalismo e o presidencialismo, e fui eleito pelo Congresso. Essa transformação não garantiu participação política para toda a população. Meu governo enfrentou especulação financeira e conflitos com o Legislativo. Depois de dissolver o Congresso e perder apoio, renunciei em novembro de 1891. Floriano Peixoto assumiu a Presidência.",
+      "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Fonseca/biografia-completa"
+    }
+  ]
+}

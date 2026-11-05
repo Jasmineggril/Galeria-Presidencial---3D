@@ -1,0 +1,3 @@
+import {validateCues} from './recorded-narrator.js';
+function seconds(s){const v=s.trim().split(':').map(Number);if(v.length<2||v.length>3||v.some(x=>!Number.isFinite(x)))throw Error('Tempo de legenda inválido.');return v.reduce((n,x)=>n*60+x,0);}
+export function parseVtt(text){const blocks=text.replace(/^\uFEFF/,'').replace(/\r/g,'').split(/\n\s*\n/),cues=[];for(const block of blocks){const lines=block.trim().split('\n');const i=lines.findIndex(x=>x.includes('-->'));if(i<0)continue;const [a,b]=lines[i].split('-->');cues.push({start:seconds(a),end:seconds(b.trim().split(/\s+/)[0]),text:lines.slice(i+1).join(' ').replace(/<[^>]*>/g,'')});}return validateCues(cues);}

@@ -1,0 +1,547 @@
+{
+  "type": "original-stylized-busts",
+  "note": "Representações estilizadas provisórias. Não são digitalizações nem reconstruções fiéis de esculturas ou rostos históricos.",
+  "generated": "2026-11-02",
+  "models": [
+    {
+      "id": "deodoro",
+      "file": "deodoro.glb",
+      "vertices": 24620,
+      "bounds": [
+        1.3,
+        1.3600000003352761,
+        0.5800000047683715
+      ],
+      "bytes": 1145208,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Deodoro_da_Fonseca_(1889).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "vargas",
+      "file": "vargas.glb",
+      "vertices": 16689,
+      "bounds": [
+        1.2200000286102295,
+        1.369999990798533,
+        0.5917305564880371
+      ],
+      "bytes": 778072,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Getulio_Vargas_(1930).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "jk",
+      "file": "jk.glb",
+      "vertices": 16689,
+      "bounds": [
+        1.2200000286102295,
+        1.3899999717250466,
+        0.5817410266399383
+      ],
+      "bytes": 778064,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Juscelino_Kubitschek_in_1956.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "castello",
+      "file": "castello.glb",
+      "vertices": 15748,
+      "bounds": [
+        1.2200000286102295,
+        1.3560000518336892,
+        0.5810000067949295
+      ],
+      "bytes": 732524,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Humberto_Castelo_Branco,_presidente_do_Brasil,_1964.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "sarney",
+      "file": "sarney.glb",
+      "vertices": 17089,
+      "bounds": [
+        1.2200000286102295,
+        1.3780000070109963,
+        0.5917305564880371
+      ],
+      "bytes": 796936,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Foto_Oficial_Sarney_EBC.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "floriano",
+      "file": "floriano.glb",
+      "vertices": 21734,
+      "bounds": [
+        1.3,
+        1.3649999955669045,
+        0.5800000047683715
+      ],
+      "bytes": 1012428,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Floriano_Peixoto_(1891).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "prudente",
+      "file": "prudente.glb",
+      "vertices": 20916,
+      "bounds": [
+        1.2200000286102295,
+        1.373000011779368,
+        0.5837389296293258
+      ],
+      "bytes": 975296,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Prudentedemorais.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "campos",
+      "file": "campos.glb",
+      "vertices": 17089,
+      "bounds": [
+        1.2200000286102295,
+        1.3810000279918313,
+        0.5897326385974884
+      ],
+      "bytes": 796948,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Campos_Sales.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "rodrigues",
+      "file": "rodrigues.glb",
+      "vertices": 17698,
+      "bounds": [
+        1.2200000286102295,
+        1.3890000442042947,
+        0.5957263624668121
+      ],
+      "bytes": 824948,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Rodrigues_Alves_3.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "afonso",
+      "file": "afonso.glb",
+      "vertices": 19975,
+      "bounds": [
+        1.2200000286102295,
+        1.3790000537410378,
+        0.5800000047683715
+      ],
+      "bytes": 929724,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Afonso_Pena.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "nilo",
+      "file": "nilo.glb",
+      "vertices": 17698,
+      "bounds": [
+        1.2200000286102295,
+        1.3569999793544412,
+        0.5800000047683715
+      ],
+      "bytes": 824932,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Nilo_Pe%C3%A7anha_02.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "hermes",
+      "file": "hermes.glb",
+      "vertices": 21734,
+      "bounds": [
+        1.3,
+        1.3649999955669045,
+        0.5837389296293258
+      ],
+      "bytes": 1012416,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Hermes_da_Fonseca_(1910).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "venceslau",
+      "file": "venceslau.glb",
+      "vertices": 17089,
+      "bounds": [
+        1.2200000286102295,
+        1.373000011779368,
+        0.5897326385974884
+      ],
+      "bytes": 796960,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Venceslau_Br%C3%A1s.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "delfim",
+      "file": "delfim.glb",
+      "vertices": 17089,
+      "bounds": [
+        1.2200000286102295,
+        1.3810000279918313,
+        0.5957263624668121
+      ],
+      "bytes": 796948,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Delfim_Moreira_(1918).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "epitacio",
+      "file": "epitacio.glb",
+      "vertices": 17089,
+      "bounds": [
+        1.2200000286102295,
+        1.3890000442042947,
+        0.5800000047683715
+      ],
+      "bytes": 796952,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Epitacio_Pessoa_(1919).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "bernardes",
+      "file": "bernardes.glb",
+      "vertices": 17639,
+      "bounds": [
+        1.2200000286102295,
+        1.3969999412074685,
+        0.5800000047683715
+      ],
+      "bytes": 822916,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Artur_Bernardes_(1922).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "washington",
+      "file": "washington.glb",
+      "vertices": 17698,
+      "bounds": [
+        1.2200000286102295,
+        1.3569999793544412,
+        0.5837389296293258
+      ],
+      "bytes": 824944,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Washington_Lu%C3%ADs_(foto).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "linhares",
+      "file": "linhares.glb",
+      "vertices": 15748,
+      "bounds": [
+        1.2200000286102295,
+        1.3550000051036477,
+        0.583999997973442
+      ],
+      "bytes": 732528,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Jos%C3%A9_Linhares_TSE.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "dutra",
+      "file": "dutra.glb",
+      "vertices": 20393,
+      "bounds": [
+        1.3,
+        1.363000021316111,
+        0.5800000047683715
+      ],
+      "bytes": 947980,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:GASPARDUTRA.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "cafe",
+      "file": "cafe.glb",
+      "vertices": 17239,
+      "bounds": [
+        1.2200000286102295,
+        1.3890000442042947,
+        0.5800000047683715
+      ],
+      "bytes": 804024,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Caf%C3%A9_Filho.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "carlos",
+      "file": "carlos.glb",
+      "vertices": 16689,
+      "bounds": [
+        1.2200000286102295,
+        1.3969999412074685,
+        0.5837389296293258
+      ],
+      "bytes": 778076,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:CarlosLuz.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "nereu",
+      "file": "nereu.glb",
+      "vertices": 15748,
+      "bounds": [
+        1.2200000286102295,
+        1.338999972678721,
+        0.5800000047683715
+      ],
+      "bytes": 732520,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Presidente_Nereu_Ramos.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "janio",
+      "file": "janio.glb",
+      "vertices": 17639,
+      "bounds": [
+        1.2200000286102295,
+        1.373000011779368,
+        0.5800000047683715
+      ],
+      "bytes": 822904,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:J%C3%A2nio_Quadros,_presidente_do_Brasil_em_1961_(foto_oficial).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "mazzilli",
+      "file": "mazzilli.glb",
+      "vertices": 16689,
+      "bounds": [
+        1.2200000286102295,
+        1.3810000279918313,
+        0.5800000047683715
+      ],
+      "bytes": 778076,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Ranieri_Mazzilli_(1961).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "goulart",
+      "file": "goulart.glb",
+      "vertices": 16689,
+      "bounds": [
+        1.2200000286102295,
+        1.3890000442042947,
+        0.5837389296293258
+      ],
+      "bytes": 778076,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Jo%C3%A3o_%E2%80%9CJango%E2%80%9D_Goulart,_Presidente_do_Brasil,_foto_oficial,_1961.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "costa",
+      "file": "costa.glb",
+      "vertices": 21334,
+      "bounds": [
+        1.3,
+        1.3569999793544412,
+        0.5957263624668121
+      ],
+      "bytes": 993544,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Costa_e_Silva.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "medici",
+      "file": "medici.glb",
+      "vertices": 20393,
+      "bounds": [
+        1.3,
+        1.3469999888911843,
+        0.5800000047683715
+      ],
+      "bytes": 947988,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Em%C3%ADlio_Garrastazu_M%C3%A9dici,_presidente_da_Rep%C3%BAblica._(cropped_and_contrast_enhanced).tif",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "geisel",
+      "file": "geisel.glb",
+      "vertices": 20943,
+      "bounds": [
+        1.3,
+        1.3550000051036477,
+        0.5800000047683715
+      ],
+      "bytes": 973940,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Foto_oficial_de_Ernesto_Geisel_(corre%C3%A7%C3%A3o_de_cor).png",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "figueiredo",
+      "file": "figueiredo.glb",
+      "vertices": 20393,
+      "bounds": [
+        1.3,
+        1.363000021316111,
+        0.5800000047683715
+      ],
+      "bytes": 947996,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Jo%C3%A3o_Figueiredo,_presidente_do_Brasil,_1979.jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "collor",
+      "file": "collor.glb",
+      "vertices": 16689,
+      "bounds": [
+        1.2200000286102295,
+        1.3969999412074685,
+        0.5957263624668121
+      ],
+      "bytes": 778072,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Foto_oficial_do_presidente_Fernando_Collor_de_Melo._(38405801411).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "itamar",
+      "file": "itamar.glb",
+      "vertices": 17239,
+      "bounds": [
+        1.2200000286102295,
+        1.3569999793544412,
+        0.5800000047683715
+      ],
+      "bytes": 804032,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Itamar_Franco_Faixa_Presidencial_(cropped).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "fhc",
+      "file": "fhc.glb",
+      "vertices": 17239,
+      "bounds": [
+        1.2200000286102295,
+        1.3649999955669045,
+        0.5800000047683715
+      ],
+      "bytes": 804024,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Fernando_Henrique_Cardoso_(1999).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "lula",
+      "file": "lula.glb",
+      "vertices": 20516,
+      "bounds": [
+        1.2200000286102295,
+        1.373000011779368,
+        0.5837389296293258
+      ],
+      "bytes": 956404,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Foto_oficial_de_Luiz_In%C3%A1cio_Lula_da_Silva_(ombros).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "dilma",
+      "file": "dilma.glb",
+      "vertices": 17293,
+      "bounds": [
+        1.2200000286102295,
+        1.3810000279918313,
+        0.5897326385974884
+      ],
+      "bytes": 805312,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Dilma_Rousseff_-_foto_oficial_2011-01-09_(cropped).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "temer",
+      "file": "temer.glb",
+      "vertices": 15748,
+      "bounds": [
+        1.2200000286102295,
+        1.3710000375285745,
+        0.583999997973442
+      ],
+      "bytes": 732520,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Michel_Temer_(foto_oficial)_(cropped_2).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    },
+    {
+      "id": "bolsonaro",
+      "file": "bolsonaro.glb",
+      "vertices": 16689,
+      "bounds": [
+        1.2200000286102295,
+        1.3969999412074685,
+        0.5800000047683715
+      ],
+      "bytes": 778080,
+      "provisional": true,
+      "historicallyExact": false,
+      "visualReference": "https://commons.wikimedia.org/wiki/File:Jair_Bolsonaro_2019_Portrait_(3x4_cropped_center).jpg",
+      "referenceUse": "Comparação e revisão manual de características gerais; sem reconstrução facial medida ou fotogrametria."
+    }
+  ]
+}

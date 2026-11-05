@@ -1,0 +1,212 @@
+{
+  "recordings": {
+    "lula": {
+      "src": "assets/audio/lula.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é a voz real de Lula.",
+      "generatedAt": "2026-11-03"
+    },
+    "dilma": {
+      "src": "assets/audio/dilma.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 41.718,
+      "sha256": "def3626f24e57796b5ce80eacc55ba2a1e88d5f617dde585669be61f7873eb56"
+    },
+    "fhc": {
+      "src": "assets/audio/fhc.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 39.314,
+      "sha256": "d2504955b3c8a184dea0aae574d491f1162835a5456b14c9ffc842261ac0eab7"
+    },
+    "itamar": {
+      "src": "assets/audio/itamar.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 38.113,
+      "sha256": "8c577ce172196237d6c530c2c17cd89705d7f32247d09df31cc7aafd5dfc7215"
+    },
+    "collor": {
+      "src": "assets/audio/collor.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 41.953,
+      "sha256": "6d04a8e2c3b5c10051675c3f709693bd1c85a0217583ad50bd856c8ce23d6e63"
+    },
+    "sarney": {
+      "src": "assets/audio/sarney.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 39.079,
+      "sha256": "77159f1731f3c46909f6f1eb5130b1b2f490954609793d599c2f2f62e939be1f"
+    },
+    "figueiredo": {
+      "src": "assets/audio/figueiredo.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 42.841,
+      "sha256": "029ba39291cc04462f21ba8c0b386e4740f01879bf7583cb2308ab5bfb9c7b04"
+    },
+    "geisel": {
+      "src": "assets/audio/geisel.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 45.479,
+      "sha256": "d35663787b7aa9394f2add91ca827c11a478bb146857b538f65ec060c95fb6d7"
+    },
+    "bolsonaro": {
+      "src": "assets/audio/bolsonaro.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 44.931,
+      "sha256": "c3c2f34e2127d4f0431ad814d71180edd4ba790ac1755f91acb0fa83abb761d6"
+    },
+    "temer": {
+      "src": "assets/audio/temer.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 38.609,
+      "sha256": "f619426ccd7eab533104cb5f2258608db581adeda871fece5efceca5a72280fc"
+    },
+    "medici": {
+      "src": "assets/audio/medici.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 45.087,
+      "sha256": "a43fb3449100539118856bb6fc86269a94c97dfc0d2f22cd253a1bedeff8ac7f"
+    },
+    "costa": {
+      "src": "assets/audio/costa.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 43.651,
+      "sha256": "21917c69505a2fd12d7478af55b98f6791c7b8280ad1e03d454f51c0262eeba3"
+    },
+    "castello": {
+      "src": "assets/audio/castello.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 41.718,
+      "sha256": "baecc86432f3e06a1dab1c7934a5d5ecdca2a76efd4f7b15a8a217bcd49dbbbe"
+    },
+    "goulart": {
+      "src": "assets/audio/goulart.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 41.404,
+      "sha256": "be5d0c0de3ac1167e46bac54774617b24ab3ba4c3921b76f1b3e7ba37a7fa77f"
+    },
+    "mazzilli": {
+      "src": "assets/audio/mazzilli.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 34.508,
+      "sha256": "ec86ff96179ee8d958fdeebbcf34ab0d84e0a98d764ae5f5abe9743bae682ff4"
+    },
+    "janio": {
+      "src": "assets/audio/janio.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 38.844,
+      "sha256": "5d187c454f5a098f9b4ef8f0dfb27e2488faa67f7fabd360e94d15c0e3b47b52"
+    },
+    "jk": {
+      "src": "assets/audio/jk.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 42.684,
+      "sha256": "3882266a410e6f345e183667f84cd31f58f83bae39c22379ab4734ac8f359776"
+    },
+    "nereu": {
+      "src": "assets/audio/nereu.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 33.881,
+      "sha256": "2f2ae3d52cb6ebf4e60139858230d6f1243d21975cf3759d2a6e76e433bda37c"
+    },
+    "carlos": {
+      "src": "assets/audio/carlos.mp3",
+      "cues": [],
+      "provider": "ElevenLabs",
+      "voice": "Paulo - Natural Brazilian Voice",
+      "model": "Eleven v4",
+      "disclaimer": "Dramatização educativa com voz sintética. Não é gravação original nem imitação da voz do presidente.",
+      "generatedAt": "2026-11-03",
+      "duration": 34.586,
+      "sha256": "62af135cea1d294560c4f0084286f062d3cbbfbde09fe34d0339460dbf081f2c"
+    }
+  },
+  "note": "Narrações educativas ElevenLabs disponíveis nos registros indicados. Demais fichas usam síntese do navegador. Sem legendas temporizadas: roteiro completo para leitura."
+}

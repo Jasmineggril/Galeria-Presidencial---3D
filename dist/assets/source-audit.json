@@ -1,0 +1,289 @@
+[
+  {
+    "id": "deodoro",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Fonseca/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Fonseca/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "floriano",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Floriano/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Floriano/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "prudente",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/prudente/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/prudente/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "campos",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/campossalles/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/campossalles/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "rodrigues",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/RodriguesAlves/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/RodriguesAlves/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "afonso",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Affonso/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Affonso/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "nilo",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Nilo/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Nilo/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "hermes",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/hermesfonseca/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/hermesfonseca/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "venceslau",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Wenceslau/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Wenceslau/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "delfim",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Delfim%20Moreira/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Delfim%20Moreira/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "epitacio",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Epitacio/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Epitacio/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "bernardes",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Bernardes/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Bernardes/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "washington",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Washington/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Washington/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "vargas",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Vargas/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Vargas/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "linhares",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Linhares/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Linhares/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "dutra",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Dutra/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Dutra/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "cafe",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Cafe_Filho/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Cafe_Filho/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "carlos",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/carlos_luz/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/carlos_luz/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "nereu",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/nereu_ramos/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/nereu_ramos/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "jk",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/jk/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/jk/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "janio",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/janio_quadros/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/janio_quadros/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "mazzilli",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Mazzilli/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/Mazzilli/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "goulart",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/goulart",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/goulart",
+    "status": 200,
+    "title": "Dados ex-Presidente — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "castello",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/castello_branco",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/castello_branco",
+    "status": 200,
+    "title": "Dados ex-Presidente — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "costa",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/costa_e_silva/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/costa_e_silva/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "medici",
+    "source": "https://presidentes.an.gov.br/index.php/centro-de-referencia-de-acervos-presidenciais/assuntos/biografias/190-emilio-garrastazu-medici",
+    "resolved": "https://presidentes.an.gov.br/index.php/centro-de-referencia-de-acervos-presidenciais/assuntos/biografias/190-emilio-garrastazu-medici",
+    "status": 200,
+    "title": "Emílio Garrastazu Médici",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "geisel",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/ernesto_geisel/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/ernesto_geisel/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "figueiredo",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/joao_baptista_figueiredo/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/joao_baptista_figueiredo/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "sarney",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/jose_sarney/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/jose_sarney/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "collor",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/collor/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/collor/biografia-completa",
+    "status": 200,
+    "title": "Biografia — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "itamar",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/itamar-augusto-cautiero-franco/biografia",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/itamar-augusto-cautiero-franco/biografia",
+    "status": 200,
+    "title": "Biografia — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "fhc",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/fernando-henrique-cardoso/biografia-completa-fernando-henrique-cardoso",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/fernando-henrique-cardoso/biografia-completa-fernando-henrique-cardoso",
+    "status": 200,
+    "title": "Biografia - Fernando Henrique Cardoso — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "lula",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/luiz-inacio-lula-da-silva/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/luiz-inacio-lula-da-silva/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "dilma",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/dilma-vana-rousseff/biografia-completa",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/dilma-vana-rousseff/biografia-completa",
+    "status": 200,
+    "title": "Biografia Completa — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "temer",
+    "source": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/capa-dados-ex-presidente",
+    "resolved": "https://www.gov.br/secretariageral/pt-br/centrais-de-conteudo/biblioteca-da-pr/galeria-dos-ex-presidentes/capa-dados-ex-presidente",
+    "status": 200,
+    "title": "Capa - Dados ex-Presidente — Secretaria-Geral",
+    "checked": "2026-11-02"
+  },
+  {
+    "id": "bolsonaro",
+    "source": "https://www.biblioteca.presidencia.gov.br/presidencia/ex-presidentes/bolsonaro/Bolsonaro",
+    "status": 503,
+    "reason": "HTTPError",
+    "checked": "2026-11-02"
+  }
+]

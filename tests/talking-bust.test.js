@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {speechPose} from '../dist/talking-bust.js';
+test('boca fecha em pausa e segue energia somente durante reprodução',()=>{assert.equal(speechPose(2,false,1).jaw,0);assert.equal(speechPose(2,true,.7).jaw,.7);assert.equal(speechPose(2,true,3).jaw,1);});
+test('olhos piscam e cabeça mantém movimentos limitados',()=>{assert.equal(speechPose(4.59,false).blink,.05);assert.equal(speechPose(1,false).blink,1);for(let t=0;t<20;t+=.05){const p=speechPose(t,false);assert.ok(Math.abs(p.yaw)<=.075);assert.ok(Math.abs(p.nod)<=.025);}});
