@@ -26,7 +26,7 @@ function register(){
  registerBustComponent(window.AFRAME);
  registerBustReferenceComponent(window.AFRAME);
  if(!window.AFRAME.components['gp-bounds'])window.AFRAME.registerComponent('gp-bounds',{
-  tick(){if(scene?.is('vr-mode'))return;const pos=this.el.getAttribute('position'),r=rig.getAttribute('position');const yaw=rig.object3D.rotation.y;const x=r.x+pos.x*Math.cos(yaw)+pos.z*Math.sin(yaw),z=r.z-pos.x*Math.sin(yaw)+pos.z*Math.cos(yaw);const cl=clampPosition({x,y:pos.y,z});if(cl.x!==x||cl.z!==z){const dx=cl.x-r.x,dz=cl.z-r.z;this.el.setAttribute('position',{x:dx*Math.cos(yaw)-dz*Math.sin(yaw),y:1.65,z:dx*Math.sin(yaw)+dz*Math.cos(yaw)});}}
+  tick(){if(scene?.is('vr-mode'))return;const pos=this.el.getAttribute('position'),r=rig.getAttribute('position');const yaw=rig.object3D.rotation.y;const x=r.x+pos.x*Math.cos(yaw)+pos.z*Math.sin(yaw),z=r.z-pos.x*Math.sin(yaw)+pos.z*Math.cos(yaw);const cl=clampPosition({x,y:pos.y,z},{obstacles:window.GP_OBSTACLES||[]});if(cl.x!==x||cl.z!==z){const dx=cl.x-r.x,dz=cl.z-r.z;this.el.setAttribute('position',{x:dx*Math.cos(yaw)-dz*Math.sin(yaw),y:1.65,z:dx*Math.sin(yaw)+dz*Math.cos(yaw)});}}
  });
 }
 function buildRoom(){
@@ -91,6 +91,7 @@ let selectedBust=null;
 function addBustStation(p,index){
  const x=p.position[0]<0?-7.05:7.05;
  const station=entity('a-entity',{id:'bust-station-'+p.id,position:`${x} 0 ${p.position[2]}`,rotation:`0 ${p.rotation} 0`},scene);
+ (window.GP_OBSTACLES ||= []).push({x,z:p.position[2],radius:0.9});
  entity('a-cylinder',{position:'0 .045 0',height:.09,radius:.8,color:'#58685c','segments-radial':48},station);
  entity('a-box',{position:'0 .5 0',width:1.06,height:.84,depth:.86,color:'#e8e1d1',roughness:1},station);
  entity('a-box',{position:'0 .95 0',width:1.16,height:.1,depth:.98,color:'#677065',roughness:.8},station);
@@ -209,7 +210,7 @@ export function switchRoom(members,room){
  exhibition.remove();geometries.forEach(g=>g?.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());
  }
  assets.querySelectorAll('canvas,img[data-portrait]').forEach(e=>e.remove());
- PRESIDENTS=members;roomInfo=room;buildExhibition();goHome();return true;
+ PRESIDENTS=members;roomInfo=room;window.GP_OBSTACLES=[];buildExhibition();goHome();return true;
 }
 export function showXRNarration(p,caption,handlers){
  if(!isXR())return;const root=placeOverlay();

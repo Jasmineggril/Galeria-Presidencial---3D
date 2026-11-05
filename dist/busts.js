@@ -6,7 +6,8 @@ export const BUST_PROFILES = {
  vargas:{headWidth:.283,headDepth:.245,headHeight:.342,hair:'swept',hairline:1.08,cheek:.017,brow:.018,color:'#a88956'},
  jk:{headWidth:.253,headDepth:.235,headHeight:.362,hair:'swept',hairline:1.13,cheek:.007,brow:.013,color:'#a88956'},
  castello:{headWidth:.278,headDepth:.246,headHeight:.346,hair:'receding',cheek:.013,brow:.019,color:'#a88956'},
- sarney:{headWidth:.272,headDepth:.245,headHeight:.35,hair:'swept',hairline:1.1,moustache:true,cheek:.012,brow:.014,color:'#a88956'}
+ sarney:{headWidth:.272,headDepth:.245,headHeight:.35,hair:'swept',hairline:1.1,moustache:true,cheek:.012,brow:.014,color:'#a88956'},
+  lula:{headWidth:.285,headDepth:.255,headHeight:.348,hair:'swept',hairline:1.02,beard:true,cheek:.018,brow:.016,color:'#a88956'}
 };
 const gauss=(x,s)=>Math.exp(-(x*x)/(s*s));
 export function createBust(THREE,id){

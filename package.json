@@ -6,6 +6,6 @@
   "description": "Museu da República com 36 presidentes, seis salas, narração e A-Frame",
   "scripts": {
     "test": "node --test",
-    "check": "node --check dist/museum.js && node --check dist/scene.js && node --check dist/catalog.js && node --check dist/narrator.js && node --check dist/avatar.js && node --check dist/account.js && node --test"
+    "check": "node --check dist/museum.js && node --check dist/scene.js && node --check dist/catalog.js && node --check dist/narrator.js && node --check dist/recorded-narrator.js && node --check dist/talking-bust.js && node --check dist/bustos-referencias/bustos.js && node --check dist/avatar.js && node --check dist/account.js && node --test"
   }
 }
