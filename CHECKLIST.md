@@ -9,4 +9,7 @@ MP3 real gerado no ElevenLabs com a voz brasileira Paulo (Eleven v4), integrado 
 
 
 ## Personagem animado do Lula — 03/11/2026
-Personagem estilizado no piloto e na ficha de Lula: piscar, movimento de cabeça e abertura de boca guiada pela amplitude do áudio usando Web Audio. Three.js via A-Frame local para versão 3D; SVG animado como alternativa sem WebGL. Não é reconstrução facial nem sincronização de fonemas. Navegador de validação sem WebGL: alternativa ilustrada e áudio testados; renderização 3D requer conferência em dispositivo compatível.
+Personagem estilizado no piloto e na ficha de Lula: piscar, movimento de cabeça e abertura de boca guiada pela amplitude do áudio usando Web Audio. Three.js via A-Frame local para versão 3D; SVG animado como alternativa sem WebGL. Não é reconstrução facial nem sincronização de fonemas. Na verificação anterior, o navegador não tinha WebGL; a renderização 3D ainda requer conferência em dispositivo compatível.
+
+## Referências 2D dos bustos — 05/11/2026
+36 referências associadas às fichas pelo `id` do manifesto, com painel plano na sala A-Frame. As imagens são referências visuais 2D; não substituem os modelos GLB nem são texturas faciais. O teste automatizado aprovou as 36 associações e os recortes. No navegador integrado, verificados a ficha de Lula, um painel da sala e os estados de falha; falta inspeção visual sistemática e validação em dispositivos físicos/headset.

@@ -3,23 +3,36 @@ import {DATA_SOURCES} from './public-data.js';
 import {CATALOG,ROOMS,SPECIALS,ROOM_QUESTIONS,GENERAL_QUESTIONS} from './catalog.js';
 import {TEAM} from './content.js';
 import {registerCatalogBusts} from './catalog-busts.js';
+import {getBustReference} from './bustos-referencias/bustos.js';
 import {AudioGuide} from './recorded-narrator.js';
 import {createQuiz} from './model.js';
 import {initializeScene,switchRoom,goTo,goHome,setMovement,isXR,showXRDetail,showXRQuiz,closeXR,enterXR,supportsXR,toggleFullscreen,rotateBust,resetBust,showXRNarration} from './scene.js';
 const $=id=>document.getElementById(id),visited=new Set();
-let recordings={};let detailAvatar=null;
+let recordings={};let detailAvatar=null,bustReferenceRequest=0;
 const recordingsReady=fetch('assets/audio/manifest.json').then(r=>{if(!r.ok)throw Error('Manifest unavailable');return r.json();}).then(d=>{recordings=d.recordings||{};renderCollection();}).catch(()=>{});
 let detailRequest=0;
 let activeRoom=1,ready=false,entered=false,current=null,viewIndex=-1,toastTimer,loadTimeout,quiz=createQuiz(GENERAL_QUESTIONS),quizLabel='Revisão geral';
 const find=id=>CATALOG.find(p=>p.id===id),room=id=>ROOMS.find(r=>r.id===id),normalize=s=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const el=(tag,text,cls)=>{const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(cls)n.className=cls;return n;};
+const bustReferencePanel=el('section',undefined,'bust-reference-panel');
+bustReferencePanel.setAttribute('aria-labelledby','bust-reference-heading');
+const bustReferenceLabel=el('span','REFERÊNCIA VISUAL 2D · CONCEITO GERADO POR IA','eyebrow');
+const bustReferenceHeading=el('h3','Conceito visual de um busto');
+bustReferenceHeading.id='bust-reference-heading';
+const bustReferenceStatus=el('p','A referência visual ainda não foi carregada.','bust-reference-status');
+bustReferenceStatus.id='bust-reference-status';bustReferenceStatus.setAttribute('role','status');
+const bustReferenceDisplay=el('div',undefined,'bust-reference-display');
+bustReferenceDisplay.id='bust-reference-display';
+const bustReferenceNote=el('p','Imagem conceitual 2D. Não é fotografia histórica, modelo 3D nem textura facial pronta.','bust-reference-note');
+bustReferencePanel.append(bustReferenceLabel,bustReferenceHeading,bustReferenceStatus,bustReferenceDisplay,bustReferenceNote);
+$('detail-facts').after(bustReferencePanel);
 const link=(text,href)=>{const a=el('a',text);a.href=href;a.target='_blank';a.rel='noopener noreferrer';return a;};
 function toast(text){$('toast').textContent=text;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,4500);}
 function members(id){return CATALOG.filter(p=>p.room===id).map((p,i)=>{const left=i%2===0,z=2-Math.floor(i/2)*3;return {...p,era:room(id).title,image:p.image||'assets/studies/'+p.id+'.webp',model:'url(assets/busts/'+p.id+'.glb)',position:[left?-8.72:8.72,2.55,z],rotation:left?90:-90,view:[left?-4.7:4.7,0,z],heading:left?90:-90,milestone:p.years,detail:p.regime+' · '+p.accession};});}
 registerCatalogBusts(CATALOG);
 function progress(){ $('visited-count').textContent=visited.size+' de '+CATALOG.length;document.querySelectorAll('[data-record]').forEach(n=>{n.dataset.visited=String(visited.has(n.dataset.record));}); }
 function openDialog(d){document.querySelectorAll('dialog[open]').forEach(x=>{if(x!==d)x.close();});setMovement(false);if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});if(!d.open)d.showModal();}
-for(const d of document.querySelectorAll('dialog')){d.querySelector('[data-close]').onclick=()=>d.close();d.addEventListener('close',()=>{detailAvatar?.destroy();detailAvatar=null;narrator.stop();if(entered)setMovement(true);});d.addEventListener('click',e=>{if(e.target===d){const b=d.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)d.close();}});}
+for(const d of document.querySelectorAll('dialog')){d.querySelector('[data-close]').onclick=()=>d.close();d.addEventListener('close',()=>{detailAvatar?.destroy();detailAvatar=null;narrator.stop();if(d.id==='detail-dialog'){bustReferenceRequest++;bustReferenceDisplay.replaceChildren();bustReferenceStatus.textContent='A referência visual ainda não foi carregada.';}if(entered)setMovement(true);});d.addEventListener('click',e=>{if(e.target===d){const b=d.getBoundingClientRect();if(e.clientX<b.left||e.clientX>b.right||e.clientY<b.top||e.clientY>b.bottom)d.close();}});}
 const narrator=new AudioGuide({onChange:s=>{
  detailAvatar?.setState(s.state);
  $('narrate-pause').disabled=s.state!=='playing';$('narrate-play').disabled=['playing','loading'].includes(s.state);$('narrate-play').textContent=s.state==='paused'?'▶ Continuar':'▶ Ouvir minha história';
@@ -41,10 +54,25 @@ function renderCollection(){const term=normalize($('search').value.trim()),filte
  matches.forEach(p=>{const article=el('article',undefined,'collection-card');article.dataset.record=p.id;article.append(el('span','SALA '+String(p.room).padStart(2,'0')+' / '+room(p.room).title,'card-num'));const image=el('img');image.src=p.image||'assets/studies/'+p.id+'.webp';image.alt=p.image?'Retrato histórico de '+p.name:'Prévia do busto 3D estilizado e provisório de '+p.name;image.loading='lazy';image.width=480;image.height=600;image.className='card-photo';article.append(image,el('span',p.image?'RETRATO HISTÓRICO · FONTE PÚBLICA':'ESTUDO ESCULTÓRICO PROVISÓRIO','model-tag'),el('h3',p.name),el('p',p.years,'years'),el('p',p.regime,'era'));const read=el('button','▶ Conhecer e ouvir sua história','card-button');read.setAttribute('aria-label','Conhecer '+p.name);read.onclick=()=>openDetail(p.id);const see=el('button','Observar o busto na sala ↗','card-button');see.onclick=()=>observe(p);article.append(el('p',recordings[p.id]?'Áudio ElevenLabs disponível':'Narração pela voz do navegador','audio-origin'),read,see);$('collection-grid').append(article);});
  $('record-count').textContent=matches.length+' de '+CATALOG.length+' presidentes no acervo · '+Object.keys(recordings).length+' narrações ElevenLabs';$('empty-state').hidden=!!matches.length;progress();
 }
+async function renderBustReference(p){
+ const request=++bustReferenceRequest;
+ bustReferenceDisplay.replaceChildren();bustReferenceStatus.textContent='Carregando conceito visual 2D…';
+ try{
+  const {president,canvas}=await getBustReference(p.id);
+  if(request!==bustReferenceRequest||!$('detail-dialog').open||current?.id!==p.id)return;
+  canvas.className='bust-reference-canvas';bustReferenceDisplay.replaceChildren(canvas);
+  bustReferenceStatus.textContent='Referência visual de '+president.name+' carregada.';
+ }catch(error){
+  if(request!==bustReferenceRequest)return;
+  bustReferenceStatus.textContent='Não foi possível carregar a referência visual 2D de '+p.name+'. A ficha e o modelo 3D continuam disponíveis.';
+  console.error('Falha ao carregar referência visual 2D para '+p.id+':',error);
+ }
+}
 async function openDetail(id){const request=++detailRequest;await recordingsReady;if(request!==detailRequest)return;const p=find(id);if(!p)return;current=p;visited.add(id);progress();narrator.stop();if(isXR()){if(activeRoom!==p.room)changeRoom(p.room,false);const m=members(p.room);showXRDetail(m.find(x=>x.id===id),m.findIndex(x=>x.id===id));return;}
  $('detail-image').src=p.image||'assets/studies/'+p.id+'.webp';$('detail-image').alt=p.image?'Retrato de '+p.name:'Prévia do busto estilizado provisório de '+p.name;$('detail-era').textContent=room(p.room).title;$('detail-name').textContent=p.name;$('detail-years').textContent=p.years;const credit=p.portraitCredit;$('portrait-credit').replaceChildren();if(credit){$('portrait-credit').append(document.createTextNode('Imagem: '+credit.artist+' · '+credit.license+' · '),link('Origem e licença ↗',credit.page));} $('comparison-image').src='assets/studies/'+p.id+'.webp';$('comparison-image').alt='Estudo 3D provisório de '+p.name+' para comparar com o retrato histórico';$('detail-facts').textContent=p.regime+' · '+p.accession;$('detail-summary').textContent=p.summary;if(p.id==='lula')$('detail-summary').append(document.createTextNode(' '),link('Ver Lula animado e ouvir a narração ↗','lula-piloto.html'));$('detail-milestone').textContent='Contexto e fontes';$('detail-context').textContent='O acervo reúne 36 presidentes individuais, incluindo interinos, sem contar substituições ocasionais em viagens. Retornos ao cargo estão reunidos na mesma ficha. As esculturas são estudos estilizados, sem fidelidade facial garantida.';$('detail-source').href=p.source;$('detail-source').textContent='Consultar '+p.sourceName+' ↗';$('detail-index').textContent=(CATALOG.indexOf(p)+1)+' / '+CATALOG.length;
  $('observe-bust').onclick=()=>{$('detail-dialog').close();observe(p);};$('rotate-left').onclick=()=>{if(p.room!==activeRoom||!ready){toast('Abra este busto na sala 3D para girar a peça.');return;}rotateBust(p.id,-30);};$('rotate-right').onclick=()=>{if(p.room!==activeRoom||!ready){toast('Abra este busto na sala 3D para girar a peça.');return;}rotateBust(p.id,30);};$('reset-bust').onclick=()=>resetBust(p.id);
- detailAvatar?.destroy();detailAvatar=null;$('detail-avatar').hidden=p.id!=='lula';openDialog($('detail-dialog'));narrator.load(p.narration,recordings[p.id]);if(p.id==='lula')detailAvatar=new TalkingBustView($('detail-avatar'),{audio:()=>narrator.recorded.audio});$('detail-dialog').scrollTop=0;document.querySelector('.detail-copy').scrollTop=0;
+ bustReferenceHeading.textContent='Conceito visual de '+p.name;
+ detailAvatar?.destroy();detailAvatar=null;$('detail-avatar').hidden=p.id!=='lula';openDialog($('detail-dialog'));renderBustReference(p);narrator.load(p.narration,recordings[p.id]);if(p.id==='lula')detailAvatar=new TalkingBustView($('detail-avatar'),{audio:()=>narrator.recorded.audio});$('detail-dialog').scrollTop=0;document.querySelector('.detail-copy').scrollTop=0;
 }
 function startQuiz(scope){narrator.stop();quizLabel=scope==='all'?'Revisão geral':'Sala '+activeRoom+' · '+room(activeRoom).title;quiz=createQuiz(scope==='all'?GENERAL_QUESTIONS:ROOM_QUESTIONS[activeRoom]);drawQuiz();if(!isXR())openDialog($('quiz-dialog'));}
 function drawQuiz(){if(isXR()){showXRQuiz(quiz,{answer:answerQuiz,next:nextQuiz,restart:()=>{quiz.reset();drawQuiz();}});return;}$('quiz-options').replaceChildren();$('quiz-feedback').textContent='';$('quiz-progress-bar').style.width=(quiz.index/quiz.total*100)+'%';

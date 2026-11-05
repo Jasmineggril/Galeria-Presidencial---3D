@@ -2,6 +2,7 @@ import { PRESIDENTS as INITIAL_PRESIDENTS } from './content.js';
 let PRESIDENTS=INITIAL_PRESIDENTS, exhibition, roomInfo;
 import { clampPosition } from './model.js';
 import { registerBustComponent } from './busts.js';
+import { registerBustReferenceComponent } from './bustos-referencias/bustos.js';
 const INK='#193f36',PAPER='#f3eee0',GOLD='#ad915e';
 let scene,rig,camera,callbacks,overlay,assets,currentMode='desktop';
 const $=id=>document.getElementById(id);
@@ -23,6 +24,7 @@ function button(parent,label,pos,width,height,onClick,{dark=false}={}){
 }
 function register(){
  registerBustComponent(window.AFRAME);
+ registerBustReferenceComponent(window.AFRAME);
  if(!window.AFRAME.components['gp-bounds'])window.AFRAME.registerComponent('gp-bounds',{
   tick(){if(scene?.is('vr-mode'))return;const pos=this.el.getAttribute('position'),r=rig.getAttribute('position');const yaw=rig.object3D.rotation.y;const x=r.x+pos.x*Math.cos(yaw)+pos.z*Math.sin(yaw),z=r.z-pos.x*Math.sin(yaw)+pos.z*Math.cos(yaw);const cl=clampPosition({x,y:pos.y,z});if(cl.x!==x||cl.z!==z){const dx=cl.x-r.x,dz=cl.z-r.z;this.el.setAttribute('position',{x:dx*Math.cos(yaw)-dz*Math.sin(yaw),y:1.65,z:dx*Math.sin(yaw)+dz*Math.cos(yaw)});}}
  });
@@ -101,6 +103,15 @@ function addBustStation(p,index){
  button(station,'↶  GIRAR','-.32 .33 .445',.29,.11,()=>rotateBust(p.id,-30));
  button(station,'OUVIR / LER','0 .33 .445',.29,.11,()=>callbacks.detail(p.id),{dark:true});
  button(station,'GIRAR  ↷','.32 .33 .445',.29,.11,()=>rotateBust(p.id,30));
+ const reference=entity('a-entity',{id:'bust-reference-'+p.id,position:'1.08 .86 .37','busto-referencia':`presidente: ${p.id}; largura: .74`},station);
+ reference.addEventListener('busto-referencia-erro',event=>{
+  console.error('Falha ao carregar referência visual 2D para '+p.id+':',event.detail.message);
+  const fallback=textTexture([{text:'REFERÊNCIA VISUAL 2D',size:32,bold:true},{text:'Não foi possível carregar esta imagem.',size:24}],{w:800,h:1000,pad:50,bg:'#efe8d8'});
+  reference.setAttribute('geometry',{primitive:'plane',width:.74,height:.92});
+  reference.setAttribute('material',{shader:'flat',side:'double',src:fallback});
+ });
+ const referenceLabel=textTexture([{text:'REFERÊNCIA 2D · CONCEITO DE IA',size:20,bold:true},{text:'Não é modelo 3D nem textura facial',size:17}],{w:900,h:180,pad:18,bg:'#efe8d8'});
+ plane(station,{position:'1.08 1.49 .37',width:.88,height:.18,src:referenceLabel});
 }
 export function rotateBust(id,delta=30){
  const target=document.getElementById('bust-'+id);if(!target)return false;

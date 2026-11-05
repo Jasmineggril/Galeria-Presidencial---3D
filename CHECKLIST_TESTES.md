@@ -4,7 +4,7 @@ Preencha **data, versão, navegador e dispositivo** antes dos testes. Nenhum ite
 
 ## Bustos 3D
 
-- [ ] Os cinco bustos e os pedestais aparecem na sala.
+- [ ] Os bustos e pedestais da sala ativa aparecem. O catálogo atual contém 36 modelos.
 - [ ] Os bustos são identificados como estilizados e provisórios.
 - [ ] Selecionar a escultura abre a ficha correta.
 - [ ] Botões Girar do pedestal funcionam nos dois sentidos.
@@ -16,13 +16,13 @@ Preencha **data, versão, navegador e dispositivo** antes dos testes. Nenhum ite
 ## Computador
 
 - [ ] Sala inicia; não há erros bloqueantes no console.
-- [ ] Retratos corretos nos cinco painéis e na coleção em texto.
+- [ ] Retratos corretos nas 36 fichas do acervo em texto.
 - [ ] Botão Entrar libera a visita e apresenta os comandos.
 - [ ] Mouse orienta a câmera; WASD/setas deslocam sem sair da sala.
-- [ ] Cada nome do percurso leva ao painel correspondente.
-- [ ] Os cinco painéis abrem, fecham e têm fonte acessível.
-- [ ] Próximo e Anterior percorrem as cinco fichas.
-- [ ] Leitura de painéis atualiza o indicador até 5 de 5.
+- [ ] Cada presidente abre a ficha correspondente.
+- [ ] As 36 fichas abrem, fecham e têm fonte acessível.
+- [ ] Próximo e Anterior percorrem as 36 fichas.
+- [ ] Leitura de fichas atualiza o indicador até 36 de 36.
 - [ ] Voltar à entrada mantém o progresso.
 - [ ] Três perguntas exibem feedback correto e não aceitam duas respostas.
 - [ ] Próxima fica bloqueada antes de responder.
@@ -56,7 +56,7 @@ Preencha **data, versão, navegador e dispositivo** antes dos testes. Nenhum ite
 
 ## Revisão acadêmica
 
-- [ ] Conferir os cinco textos com as fontes indicadas.
+- [ ] Conferir os 36 textos com as fontes indicadas.
 - [ ] Revisar a cronologia e a identificação dos regimes políticos.
 - [ ] Conferir nomes completos da equipe e identificação da disciplina.
 - [ ] Preservar autoria, licença e link dos retratos.
@@ -64,6 +64,14 @@ Preencha **data, versão, navegador e dispositivo** antes dos testes. Nenhum ite
 - [ ] Atualizar Trello e documentos com o que foi feito e o que permanece pendente.
 
 Formato de bug: **ID, versão, passos, esperado, observado, gravidade, responsável, evidência e resultado do reteste**.
+
+## Integração das referências 2D — 05/11/2026
+
+Automatizado: `npm run check` aprovado, 19 testes JavaScript. O teste de referências valida os 36 IDs, nomes, seis pranchas, arquivos PNG, dimensões e limites dos recortes.
+
+Navegador integrado: conferidos o recorte de Lula na ficha e o painel 2D do busto de Deodoro na cena A-Frame, com GLB carregado separadamente. Ao bloquear a prancha de Vargas, a ficha informou a falha sem ocultar o retrato histórico e o painel da sala apresentou uma alternativa. Teste feito no navegador integrado, não em dispositivo físico nem headset.
+
+Ainda pendente: inspeção visual sistemática da qualidade dos 36 recortes, validação em computador/celular/tablet físicos e headset WebXR.
 
 ## Rodada 02/11/2026 — versão 0.4.0
 

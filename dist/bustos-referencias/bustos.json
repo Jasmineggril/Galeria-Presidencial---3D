@@ -1,0 +1,663 @@
+{
+  "schemaVersion": 1,
+  "notice": "Conceitos visuais gerados por IA. Não são fotografias históricas nem modelos 3D. Sem fidelidade facial validada. Os recortes são regiões das pranchas, podendo incluir moldura e pedestal.",
+  "coordinateSystem": "rect = [x, y, width, height] em pixels da imagem original, origem superior esquerda",
+  "atlases": [
+    {
+      "id": "01-espada",
+      "src": "assets/01-espada.png",
+      "width": 1536,
+      "height": 1024,
+      "period": "República da Espada"
+    },
+    {
+      "id": "02-oligarquica",
+      "src": "assets/02-oligarquica.png",
+      "width": 1222,
+      "height": 1287,
+      "period": "República Oligárquica"
+    },
+    {
+      "id": "03-vargas",
+      "src": "assets/03-vargas.png",
+      "width": 1536,
+      "height": 1024,
+      "period": "Era Vargas e transição"
+    },
+    {
+      "id": "04-republica1946",
+      "src": "assets/04-republica1946.png",
+      "width": 1536,
+      "height": 1024,
+      "period": "República de 1946"
+    },
+    {
+      "id": "05-militar",
+      "src": "assets/05-militar.png",
+      "width": 1312,
+      "height": 1199,
+      "period": "Ditadura militar"
+    },
+    {
+      "id": "06-nova-republica",
+      "src": "assets/06-nova-republica.png",
+      "width": 1536,
+      "height": 1024,
+      "period": "Nova República"
+    }
+  ],
+  "presidents": [
+    {
+      "id": "deodoro",
+      "name": "Deodoro da Fonseca",
+      "period": "República da Espada",
+      "atlas": "01-espada",
+      "rect": [
+        15,
+        97,
+        753,
+        870
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "floriano",
+      "name": "Floriano Peixoto",
+      "period": "República da Espada",
+      "atlas": "01-espada",
+      "rect": [
+        768,
+        97,
+        753,
+        870
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "prudente",
+      "name": "Prudente de Morais",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        6,
+        84,
+        302,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "campos",
+      "name": "Campos Sales",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        309,
+        84,
+        302,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "rodrigues",
+      "name": "Rodrigues Alves",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        611,
+        84,
+        302,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "afonso",
+      "name": "Afonso Pena",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        913,
+        84,
+        302,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "nilo",
+      "name": "Nilo Peçanha",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        6,
+        470,
+        302,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes da Fonseca",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        309,
+        470,
+        302,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "venceslau",
+      "name": "Venceslau Brás",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        611,
+        470,
+        302,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "delfim",
+      "name": "Delfim Moreira",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        913,
+        470,
+        302,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "epitacio",
+      "name": "Epitácio Pessoa",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        94,
+        856,
+        370,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "bernardes",
+      "name": "Artur Bernardes",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        464,
+        856,
+        370,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "washington",
+      "name": "Washington Luís",
+      "period": "República Oligárquica",
+      "atlas": "02-oligarquica",
+      "rect": [
+        835,
+        856,
+        370,
+        386
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "vargas",
+      "name": "Getúlio Vargas",
+      "period": "Era Vargas e transição",
+      "atlas": "03-vargas",
+      "rect": [
+        31,
+        87,
+        737,
+        886
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "linhares",
+      "name": "José Linhares",
+      "period": "Era Vargas e transição",
+      "atlas": "03-vargas",
+      "rect": [
+        768,
+        87,
+        737,
+        886
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "dutra",
+      "name": "Eurico Gaspar Dutra",
+      "period": "República de 1946",
+      "atlas": "04-republica1946",
+      "rect": [
+        15,
+        77,
+        376,
+        440
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "cafe",
+      "name": "Café Filho",
+      "period": "República de 1946",
+      "atlas": "04-republica1946",
+      "rect": [
+        392,
+        77,
+        376,
+        440
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "carlos",
+      "name": "Carlos Luz",
+      "period": "República de 1946",
+      "atlas": "04-republica1946",
+      "rect": [
+        768,
+        77,
+        376,
+        440
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "nereu",
+      "name": "Nereu Ramos",
+      "period": "República de 1946",
+      "atlas": "04-republica1946",
+      "rect": [
+        1144,
+        77,
+        376,
+        440
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "jk",
+      "name": "Juscelino Kubitschek",
+      "period": "República de 1946",
+      "atlas": "04-republica1946",
+      "rect": [
+        15,
+        517,
+        376,
+        440
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "janio",
+      "name": "Jânio Quadros",
+      "period": "República de 1946",
+      "atlas": "04-republica1946",
+      "rect": [
+        392,
+        517,
+        376,
+        440
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "mazzilli",
+      "name": "Ranieri Mazzilli",
+      "period": "República de 1946",
+      "atlas": "04-republica1946",
+      "rect": [
+        768,
+        517,
+        376,
+        440
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "goulart",
+      "name": "João Goulart",
+      "period": "República de 1946",
+      "atlas": "04-republica1946",
+      "rect": [
+        1144,
+        517,
+        376,
+        440
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "castello",
+      "name": "Castello Branco",
+      "period": "Ditadura militar",
+      "atlas": "05-militar",
+      "rect": [
+        13,
+        90,
+        429,
+        510
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "costa",
+      "name": "Artur da Costa e Silva",
+      "period": "Ditadura militar",
+      "atlas": "05-militar",
+      "rect": [
+        442,
+        90,
+        429,
+        510
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "medici",
+      "name": "Emílio Garrastazu Médici",
+      "period": "Ditadura militar",
+      "atlas": "05-militar",
+      "rect": [
+        870,
+        90,
+        429,
+        510
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "geisel",
+      "name": "Ernesto Geisel",
+      "period": "Ditadura militar",
+      "atlas": "05-militar",
+      "rect": [
+        125,
+        600,
+        531,
+        510
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "figueiredo",
+      "name": "João Figueiredo",
+      "period": "Ditadura militar",
+      "atlas": "05-militar",
+      "rect": [
+        656,
+        600,
+        531,
+        510
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "sarney",
+      "name": "José Sarney",
+      "period": "Nova República",
+      "atlas": "06-nova-republica",
+      "rect": [
+        15,
+        77,
+        376,
+        445
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "collor",
+      "name": "Fernando Collor",
+      "period": "Nova República",
+      "atlas": "06-nova-republica",
+      "rect": [
+        392,
+        77,
+        376,
+        445
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "itamar",
+      "name": "Itamar Franco",
+      "period": "Nova República",
+      "atlas": "06-nova-republica",
+      "rect": [
+        768,
+        77,
+        376,
+        445
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "fhc",
+      "name": "Fernando Henrique Cardoso",
+      "period": "Nova República",
+      "atlas": "06-nova-republica",
+      "rect": [
+        1144,
+        77,
+        376,
+        445
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "lula",
+      "name": "Luiz Inácio Lula da Silva",
+      "period": "Nova República",
+      "atlas": "06-nova-republica",
+      "rect": [
+        15,
+        522,
+        376,
+        445
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "dilma",
+      "name": "Dilma Rousseff",
+      "period": "Nova República",
+      "atlas": "06-nova-republica",
+      "rect": [
+        392,
+        522,
+        376,
+        445
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "temer",
+      "name": "Michel Temer",
+      "period": "Nova República",
+      "atlas": "06-nova-republica",
+      "rect": [
+        768,
+        522,
+        376,
+        445
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    },
+    {
+      "id": "bolsonaro",
+      "name": "Jair Bolsonaro",
+      "period": "Nova República",
+      "atlas": "06-nova-republica",
+      "rect": [
+        1144,
+        522,
+        376,
+        445
+      ],
+      "assetType": "generated-concept-image",
+      "is3D": false,
+      "facialLikenessValidated": false,
+      "modelUrl": null,
+      "audioUrl": null
+    }
+  ]
+}
