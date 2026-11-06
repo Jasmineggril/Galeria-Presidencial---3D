@@ -132,9 +132,9 @@ export function initializeScene(handlers,members=INITIAL_PRESIDENTS,room=null){
  rig=entity('a-entity',{id:'camera-rig',position:'0 0 6.7'},scene);
   camera=entity('a-camera',{id:'visitor-camera',position:'0 2.0 -3.5',rotation:'15 0 0','look-controls':'pointerLockEnabled: false; touchEnabled: true','wasd-controls':'acceleration: 16','gp-bounds':''},rig);
   const visitorAvatar=entity('a-entity',{id:'visitor-avatar',position:'0 -2.0 3.5'},camera);
-  entity('a-cylinder',{position:'0 0.9 0',radius:0.35,height:1.8,color:'#233e34'},visitorAvatar);
-  entity('a-sphere',{position:'0 2.0 0',radius:0.32,color:'#c99a73'},visitorAvatar);
-  entity('a-box',{position:'0 0.15 0',width:0.5,height:0.12,depth:0.7,color:'#3a2a1a'},visitorAvatar);
+  entity('a-cylinder',{id:'visitor-avatar-body',position:'0 0.9 0',radius:0.35,height:1.8,color:'#233e34'},visitorAvatar);
+  entity('a-sphere',{id:'visitor-avatar-head',position:'0 2.0 0',radius:0.32,color:'#c99a73'},visitorAvatar);
+  entity('a-box',{id:'visitor-avatar-shoes',position:'0 0.15 0',width:0.5,height:0.12,depth:0.7,color:'#3a2a1a'},visitorAvatar);
  entity('a-entity',{id:'mouse-cursor',cursor:'rayOrigin: mouse; fuse: false',raycaster:'objects: .gp-interactive; far: 24'},scene);
  entity('a-entity',{'laser-controls':'hand: right; model: false',raycaster:'objects: .gp-interactive; far: 24; lineColor: #c9af76'},rig);
  entity('a-entity',{'laser-controls':'hand: left; model: false',raycaster:'objects: .gp-interactive; far: 24; lineColor: #c9af76'},rig);
@@ -148,6 +148,14 @@ export function initializeScene(handlers,members=INITIAL_PRESIDENTS,room=null){
  });
  scene.addEventListener('exit-vr',()=>{currentMode='desktop';$('mouse-cursor').setAttribute('raycaster','enabled',true);camera.setAttribute('wasd-controls','enabled',true);gaze.setAttribute('visible',false);gaze.removeAttribute('cursor');gaze.setAttribute('raycaster','enabled',false);closeXR();callbacks.xr(false);});
  document.addEventListener('keydown',e=>{if(e.code==='Escape')closeXR();if(selectedBust&&!document.querySelector('dialog[open]')){if(e.code==='KeyQ')rotateBust(selectedBust,-15);if(e.code==='KeyE')rotateBust(selectedBust,15);}});
+}
+export function applyVisitorAvatar(colors={}){
+  const body=document.getElementById('visitor-avatar-body');
+  const head=document.getElementById('visitor-avatar-head');
+  const shoes=document.getElementById('visitor-avatar-shoes');
+  if(body&&colors.outfit)body.setAttribute('color',colors.outfit);
+  if(head&&colors.skin)head.setAttribute('color',colors.skin);
+  if(shoes&&colors.shoes)shoes.setAttribute('color',colors.shoes);
 }
 export function setMovement(enabled){if(camera){camera.setAttribute('wasd-controls','enabled',enabled&&currentMode!=='vr');camera.setAttribute('look-controls','enabled',enabled);}}
 export function isXR(){return !!scene?.is('vr-mode');}
