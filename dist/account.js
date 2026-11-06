@@ -11,9 +11,9 @@ export function backendConfig() {
   const cfg = (typeof window !== 'undefined' && window.GP_BACKEND) || {};
   return {
     provider: cfg.provider || 'none',
-    url: cfg.url || '',
+    url: (cfg.url || '').replace(/\/$/, ''),
     anonKey: cfg.anonKey || '',
-    configured: Boolean(cfg.url && cfg.anonKey)
+    configured: Boolean(cfg.url)
   };
 }
 
@@ -46,20 +46,26 @@ export function clearSession() {
   localStorage.removeItem(ACCOUNT_STORAGE_KEY);
 }
 
+async function post(path, body, token) {
+  const cfg = backendConfig();
+  const headers = { 'Content-Type': 'application/json' };
+  if (cfg.anonKey) headers['apikey'] = cfg.anonKey;
+  if (token) headers['Authorization'] = 'Bearer ' + token;
+  const response = await fetch(cfg.url + path, { method: 'POST', headers, body: JSON.stringify(body) });
+  const data = await response.json().catch(() => ({}));
+  return { response, data };
+}
+
 export async function signUp({name, email, password}) {
   const cfg = backendConfig();
   if (!cfg.configured) {
     return {ok:false, reason:'backend-unconfigured', message:'Cadastro real requer backend configurado. O modo convidado continua disponível.'};
   }
-  // Supabase-style REST endpoint. Validation and password hashing happen on the server.
-  const response = await fetch(`${cfg.url}/auth/v1/signup`, {
-    method:'POST',
-    headers:{'Content-Type':'application/json','apikey':cfg.anonKey},
-    body: JSON.stringify({email, password, data:{display_name:name}})
-  });
-  const data = await response.json().catch(()=>({}));
-  if (!response.ok) return {ok:false, reason:'signup-failed', message:data?.msg || 'Não foi possível criar a conta.'};
-  return {ok:true, session:data};
+  const {response, data} = await post('/auth/signup', {name, email, password});
+  if (!response.ok) return {ok:false, reason:'signup-failed', message:data?.message || 'Não foi possível criar a conta.'};
+  const session = data.session || data;
+  if (session?.access_token) saveSession({accessToken: session.access_token, user: session.user});
+  return {ok:true, session};
 }
 
 export async function signIn({email, password}) {
@@ -67,15 +73,11 @@ export async function signIn({email, password}) {
   if (!cfg.configured) {
     return {ok:false, reason:'backend-unconfigured', message:'Login real requer backend configurado.'};
   }
-  const response = await fetch(`${cfg.url}/auth/v1/token?grant_type=password`, {
-    method:'POST',
-    headers:{'Content-Type':'application/json','apikey':cfg.anonKey},
-    body: JSON.stringify({email, password})
-  });
-  const data = await response.json().catch(()=>({}));
-  if (!response.ok) return {ok:false, reason:'signin-failed', message:data?.error_description || 'E-mail ou senha inválidos.'};
-  saveSession({accessToken:data.access_token, refreshToken:data.refresh_token, user:data.user});
-  return {ok:true, session:data};
+  const {response, data} = await post('/auth/signin', {email, password});
+  if (!response.ok) return {ok:false, reason:'signin-failed', message:data?.message || 'E-mail ou senha inválidos.'};
+  const session = data.session || data;
+  if (session?.access_token) saveSession({accessToken: session.access_token, refreshToken: session.refresh_token, user: session.user});
+  return {ok:true, session};
 }
 
 export async function signOut() {
@@ -83,7 +85,7 @@ export async function signOut() {
   const cfg = backendConfig();
   clearSession();
   if (cfg.configured && session?.accessToken) {
-    try { await fetch(`${cfg.url}/auth/v1/logout`, {method:'POST', headers:{'Authorization':'Bearer '+session.accessToken,'apikey':cfg.anonKey}}); } catch (error) {}
+    try { await post('/auth/logout', {}, session.accessToken); } catch (error) {}
   }
   return {ok:true};
 }
@@ -93,13 +95,9 @@ export async function requestPasswordReset(email) {
   if (!cfg.configured) {
     return {ok:false, reason:'backend-unconfigured', message:'Recuperação de senha requer backend configurado.'};
   }
-  const response = await fetch(`${cfg.url}/auth/v1/recover`, {
-    method:'POST',
-    headers:{'Content-Type':'application/json','apikey':cfg.anonKey},
-    body: JSON.stringify({email})
-  });
-  if (!response.ok) return {ok:false, reason:'reset-failed', message:'Não foi possível solicitar a recuperação.'};
-  return {ok:true, message:'Se o e-mail existir, as instruções foram enviadas.'};
+  const {response, data} = await post('/auth/recover', {email});
+  if (!response.ok) return {ok:false, reason:'reset-failed', message:data?.message || 'Não foi possível solicitar a recuperação.'};
+  return {ok:true, message:data?.message || 'Se o e-mail existir, as instruções foram enviadas.'};
 }
 
 export function currentAccountLabel() {

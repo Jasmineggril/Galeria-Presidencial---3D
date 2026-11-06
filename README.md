@@ -104,3 +104,13 @@ Personagem estilizado na ficha de Lula e no piloto: piscar, movimento de cabeça
 - Area administrativa demonstrativa em dist/admin.html.
 - Esquema SQL e variaveis em docs/backend-schema.sql e docs/env.example.
 - Cobertura dos 36 presidentes em docs/coverage-36.md.
+
+## Backend opcional
+
+Para habilitar cadastro real, login e persistencia, execute:
+
+`sh
+GP_ADMIN_EMAILS=admin@exemplo.org npm run backend
+`
+
+Depois abra o museu com \?backend=http://localhost:8787\. Sem backend, apenas o modo convidado e rascunhos locais funcionam.
