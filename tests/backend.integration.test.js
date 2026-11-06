@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { spawn } from 'node:child_process';
+import { spawn, execSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
@@ -33,9 +33,14 @@ test.before(async () => {
 });
 
 test.after(async () => {
-  if (server) { server.kill('SIGKILL'); }
-  await new Promise(res => setTimeout(res, 200));
-  try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch (e) {}
+  console.log('TEARDOWN START');
+  if (server && server.pid) {
+    try { execSync('taskkill /F /PID ' + server.pid, { stdio: 'ignore' }); } catch (e) { console.log('kill err', e.message); }
+  }
+  await new Promise(res => setTimeout(res, 500));
+  try { fs.rmSync(tmpDir, { recursive: true, force: true }); } catch (e) { console.log('rm err', e.message); }
+  console.log('TEARDOWN DONE');
+  process.exit(0);
 });
 
 test('health returns ok', async () => {
