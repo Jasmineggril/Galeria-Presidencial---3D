@@ -27,11 +27,13 @@ export function backendConfig() {
   const cfg = (typeof window !== 'undefined' && window.GP_BACKEND) || {};
   const url = (cfg.url || '').replace(/\/$/, '');
   const allowed = isAllowedBackendUrl(url);
+  const provider = cfg.provider || 'none';
+  const needsKey = provider !== 'local' && provider !== 'none';
   return {
-    provider: cfg.provider || 'none',
+    provider,
     url: allowed ? url : '',
     anonKey: cfg.anonKey || '',
-    configured: Boolean(allowed && url && cfg.anonKey)
+    configured: Boolean(allowed && url && (needsKey ? cfg.anonKey : true))
   };
 }
 

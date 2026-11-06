@@ -3,8 +3,11 @@
 // Variáveis de ambiente:
 //   PORT=8787
 //   GP_DATA_FILE=./data/db.json
-//   GP_ADMIN_EMAILS=admin@exemplo.org
-//   GP_SESSION_SECRET=... (opcional, usado apenas para assinar tokens se desejado)
+//   GP_ALLOWED_ORIGINS=http://localhost:8000,https://example.org
+//   GP_SESSION_SECRET=... (opcional)
+//
+// Provisionamento administrativo:
+//   node server/server.js --promote admin@exemplo.org
 
 import http from 'http';
 import fs from 'fs';
@@ -17,26 +20,14 @@ const __dirname = path.dirname(__filename);
 
 const PORT = Number(process.env.PORT || 8787);
 const DATA_FILE = path.resolve(process.env.GP_DATA_FILE || path.join(__dirname, '..', 'data', 'db.json'));
-const ADMIN_EMAILS = new Set();
 const ALLOWED_ORIGINS = new Set((process.env.GP_ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean));
+
 let writeLock = Promise.resolve();
 
 function withWriteLock(fn) {
   const next = writeLock.then(() => fn());
   writeLock = next.catch(() => {});
   return next;
-}
-
-function atomicWriteData(data) {
-  const dir = path.dirname(DATA_FILE);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  const tmp = DATA_FILE + '.tmp';
-  fs.writeFileSync(tmp, JSON.stringify(data, null, 2));
-  fs.renameSync(tmp, DATA_FILE);
-}
-
-function hashToken(token) {
-  return crypto.createHash('sha256').update(token).digest('hex');
 }
 
 function ensureData() {
@@ -55,10 +46,18 @@ function readData() {
     if (!parsed || typeof parsed !== 'object') throw new Error('invalid');
     return { users: [], sessions: [], progress: {}, presidents: [], ...parsed };
   } catch (e) {
-    // Do not overwrite corrupted data with an empty database.
-    console.error('Falha ao ler banco de dados; mantendo arquivo original.');
-    return { users: [], sessions: [], progress: {}, presidents: [] };
+    const err = new Error('Banco de dados corrompido ou ilegível.');
+    err.code = 'DB_CORRUPT';
+    throw err;
   }
+}
+
+function atomicWriteData(data) {
+  const dir = path.dirname(DATA_FILE);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const tmp = DATA_FILE + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(data, null, 2));
+  fs.renameSync(tmp, DATA_FILE);
 }
 
 function writeData(data) {
@@ -79,29 +78,34 @@ function verifyPassword(password, stored) {
   catch (e) { return false; }
 }
 
+function hashToken(token) {
+  return crypto.createHash('sha256').update(token).digest('hex');
+}
+
 function allowedOrigin(req) {
   const origin = req.headers.origin || '';
-  if (!origin) return '*';
+  if (!origin) return null;
   if (ALLOWED_ORIGINS.size === 0) {
-    // Default: same-origin only (no CORS). Allow localhost for dev.
     if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return origin;
     return null;
   }
   return ALLOWED_ORIGINS.has(origin) ? origin : null;
 }
 
-function sendReq( status, body, req) {
-  const json = JSON.stringify(body);
-  const origin = req ? allowedOrigin(req) : null;
+function sendJson(req, res, status, body) {
+  const origin = allowedOrigin(req);
   const headers = {
     'Content-Type': 'application/json; charset=utf-8',
     'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type,Authorization'
   };
-  if (origin) headers['Access-Control-Allow-Origin'] = origin;
-  if (origin && origin !== '*') headers['Vary'] = 'Origin';
+  if (origin) {
+    headers['Access-Control-Allow-Origin'] = origin;
+    if (origin !== '*') headers['Vary'] = 'Origin';
+  }
   res.writeHead(status, headers);
-  res.end(json);
+  if (status !== 204) res.end(JSON.stringify(body));
+  else res.end();
 }
 
 function parseBody(req) {
@@ -131,202 +135,268 @@ function getSession(data, token) {
 }
 
 function isAdmin(user) {
-  return !!user && ADMIN_EMAILS.has(String(user.email).toLowerCase());
+  return !!user && user.role === 'admin';
+}
+
+function rateLimitMap() { return (rateLimitMap._m ||= new Map()); }
+function checkRateLimit(key, max = 10, windowMs = 60000) {
+  const map = rateLimitMap();
+  const now = Date.now();
+  const entry = map.get(key) || { count: 0, reset: now + windowMs };
+  if (now > entry.reset) { entry.count = 0; entry.reset = now + windowMs; }
+  entry.count++;
+  map.set(key, entry);
+  return entry.count <= max;
 }
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === 'OPTIONS') { sendReq( 204, {}, req); return; }
-  const url = new URL(req.url, 'http://' + req.headers.host);
-    const sendReq = (status, body) => send(res, status, body, req);
-  const path = url.pathname;
-  const data = readData();
+  const url = new URL(req.url, 'http://' + (req.headers.host || 'localhost'));
+  const pathName = url.pathname;
+
+  if (req.method === 'OPTIONS') {
+    sendJson(req, res, 204, {});
+    return;
+  }
+
+  let data;
+  try {
+    data = readData();
+  } catch (e) {
+    sendJson(req, res, 503, { ok: false, message: 'Serviço temporariamente indisponível.' });
+    return;
+  }
 
   try {
     // Health
-    if (path === '/health' && req.method === 'GET') {
-      sendReq( 200, { ok: true, provider: 'galeria-local', configured: true });
+    if (pathName === '/health' && req.method === 'GET') {
+      sendJson(req, res, 200, { ok: true, provider: 'galeria-local', configured: true });
       return;
     }
 
     // Signup
-    if (path === '/auth/signup' && req.method === 'POST') {
+    if (pathName === '/auth/signup' && req.method === 'POST') {
+      const ip = req.socket?.remoteAddress || 'unknown';
+      if (!checkRateLimit('signup:' + ip, 5, 60000)) {
+        sendJson(req, res, 429, { ok: false, message: 'Muitas tentativas. Tente novamente mais tarde.' });
+        return;
+      }
       const body = await parseBody(req);
       const name = String(body.name || '').trim();
       const email = String(body.email || '').trim().toLowerCase();
       const password = String(body.password || '');
       if (!name || !email || password.length < 6) {
-        sendReq( 400, { ok: false, message: 'Nome, e-mail e senha (mín. 6 caracteres) são obrigatórios.' });
+        sendJson(req, res, 400, { ok: false, message: 'Nome, e-mail e senha (mín. 6 caracteres) são obrigatórios.' });
         return;
       }
-      if (data.users.some(u => u.email === email)) {
-        sendReq( 409, { ok: false, message: 'E-mail já cadastrado.' });
-        return;
-      }
-      const user = { id: crypto.randomUUID(), name, email, passwordHash: hashPassword(password), createdAt: new Date().toISOString(), role: 'visitor' };
-      data.users.push(user);
-      const token = crypto.randomBytes(32).toString('hex');
-      data.sessions.push({ token, userId: user.id, createdAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 7*24*3600*1000).toISOString() });
-      writeData(data);
-      sendReq( 200, { ok: true, session: { access_token: token, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } } });
+      await withWriteLock(async () => {
+        const fresh = readData();
+        if (fresh.users.some(u => u.email === email)) {
+          sendJson(req, res, 409, { ok: false, message: 'E-mail já cadastrado.' });
+          return;
+        }
+        const user = { id: crypto.randomUUID(), name, email, passwordHash: hashPassword(password), createdAt: new Date().toISOString(), role: 'visitor' };
+        fresh.users.push(user);
+        const token = crypto.randomBytes(32).toString('hex');
+        fresh.sessions.push({ token, userId: user.id, createdAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 7 * 24 * 3600 * 1000).toISOString() });
+        writeData(fresh);
+        sendJson(req, res, 200, { ok: true, session: { access_token: token, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } } });
+      });
       return;
     }
 
     // Signin
-    if (path === '/auth/signin' && req.method === 'POST') {
+    if (pathName === '/auth/signin' && req.method === 'POST') {
+      const ip = req.socket?.remoteAddress || 'unknown';
+      if (!checkRateLimit('signin:' + ip, 10, 60000)) {
+        sendJson(req, res, 429, { ok: false, message: 'Muitas tentativas. Tente novamente mais tarde.' });
+        return;
+      }
       const body = await parseBody(req);
       const email = String(body.email || '').trim().toLowerCase();
       const password = String(body.password || '');
       const user = data.users.find(u => u.email === email);
       if (!user || !verifyPassword(password, user.passwordHash)) {
-        sendReq( 401, { ok: false, message: 'E-mail ou senha inválidos.' });
+        sendJson(req, res, 401, { ok: false, message: 'E-mail ou senha inválidos.' });
         return;
       }
-      const token = crypto.randomBytes(32).toString('hex');
-      data.sessions.push({ token, userId: user.id, createdAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 7*24*3600*1000).toISOString() });
-      writeData(data);
-      sendReq( 200, { ok: true, session: { access_token: token, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } } });
+      await withWriteLock(async () => {
+        const fresh = readData();
+        const token = crypto.randomBytes(32).toString('hex');
+        fresh.sessions.push({ token, userId: user.id, createdAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 7 * 24 * 3600 * 1000).toISOString() });
+        writeData(fresh);
+        sendJson(req, res, 200, { ok: true, session: { access_token: token, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } } });
+      });
       return;
     }
 
     // Logout
-    if (path === '/auth/logout' && req.method === 'POST') {
+    if (pathName === '/auth/logout' && req.method === 'POST') {
       const token = tokenFromReq(req);
-      const s = getSession(data, token);
-      if (s) { s.revoked = true; writeData(data); }
-      sendReq( 200, { ok: true });
+      await withWriteLock(async () => {
+        const fresh = readData();
+        const s = (fresh.sessions || []).find(x => x.token === token);
+        if (s) { s.revoked = true; writeData(fresh); }
+      });
+      sendJson(req, res, 200, { ok: true });
       return;
     }
 
     // Password reset request
-    if (path === '/auth/recover' && req.method === 'POST') {
+    if (pathName === '/auth/recover' && req.method === 'POST') {
       const body = await parseBody(req);
       const email = String(body.email || '').trim().toLowerCase();
       const user = data.users.find(u => u.email === email);
       if (user) {
         const resetToken = crypto.randomBytes(24).toString('hex');
-        user.resetTokenHash = hashToken(resetToken);
-        user.resetExpires = new Date(Date.now() + 3600*1000).toISOString();
-        user.resetUsed = false;
-        writeData(data);
+        await withWriteLock(async () => {
+          const fresh = readData();
+          const u = fresh.users.find(x => x.id === user.id);
+          if (u) {
+            u.resetTokenHash = hashToken(resetToken);
+            u.resetExpires = new Date(Date.now() + 3600 * 1000).toISOString();
+            u.resetUsed = false;
+            writeData(fresh);
+          }
+        });
+        // TODO: enviar resetToken por e-mail via provedor configurado.
       }
-      sendReq(200, { ok: true, message: 'Se o e-mail existir, as instruções foram enviadas.' });
+      sendJson(req, res, 200, { ok: true, message: 'Se o e-mail existir, as instruções foram enviadas.' });
       return;
     }
 
-    // Reset password (requires token sent out-of-band)
-    if (path === '/auth/reset' && req.method === 'POST') {
+    // Reset password
+    if (pathName === '/auth/reset' && req.method === 'POST') {
       const body = await parseBody(req);
       const token = String(body.token || '');
       const password = String(body.password || '');
       if (!token || password.length < 6) {
-        sendReq(400, { ok: false, message: 'Token e senha (mín. 6 caracteres) são obrigatórios.' });
+        sendJson(req, res, 400, { ok: false, message: 'Token e senha (mín. 6 caracteres) são obrigatórios.' });
         return;
       }
-      const user = data.users.find(u => u.resetTokenHash === hashToken(token) && !u.resetUsed);
-      if (!user || !user.resetExpires || new Date(user.resetExpires) < new Date()) {
-        sendReq(400, { ok: false, message: 'Token inválido ou expirado.' });
-        return;
+      let resetUser = null;
+      await withWriteLock(async () => {
+        const fresh = readData();
+        const user = fresh.users.find(u => u.resetTokenHash === hashToken(token) && !u.resetUsed);
+        if (!user || !user.resetExpires || new Date(user.resetExpires) < new Date()) {
+          sendJson(req, res, 400, { ok: false, message: 'Token inválido ou expirado.' });
+          return;
+        }
+        user.passwordHash = hashPassword(password);
+        user.resetTokenHash = null;
+        user.resetExpires = null;
+        user.resetUsed = true;
+        fresh.sessions = (fresh.sessions || []).filter(s => s.userId !== user.id);
+        writeData(fresh);
+        resetUser = user;
+      });
+      if (resetUser) {
+        sendJson(req, res, 200, { ok: true, message: 'Senha atualizada. Faça login novamente.' });
       }
-      user.passwordHash = hashPassword(password);
-      user.resetTokenHash = null;
-      user.resetExpires = null;
-      user.resetUsed = true;
-      // Revoke existing sessions
-      data.sessions = (data.sessions || []).filter(s => s.userId !== user.id);
-      writeData(data);
-      sendReq(200, { ok: true, message: 'Senha atualizada. Faça login novamente.' });
       return;
     }
 
     // Me
-    if (path === '/me' && req.method === 'GET') {
+    if (pathName === '/me' && req.method === 'GET') {
       const s = getSession(data, tokenFromReq(req));
-      if (!s) { sendReq( 401, { ok: false, message: 'Não autenticado.' }); return; }
+      if (!s) { sendJson(req, res, 401, { ok: false, message: 'Não autenticado.' }); return; }
       const user = data.users.find(u => u.id === s.userId);
-      if (!user) { sendReq( 401, { ok: false, message: 'Usuário não encontrado.' }); return; }
-      sendReq( 200, { ok: true, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } });
+      if (!user) { sendJson(req, res, 401, { ok: false, message: 'Usuário não encontrado.' }); return; }
+      sendJson(req, res, 200, { ok: true, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } });
       return;
     }
 
     // Progress
-    if (path === '/progress' && req.method === 'GET') {
+    if (pathName === '/progress' && req.method === 'GET') {
       const s = getSession(data, tokenFromReq(req));
-      if (!s) { sendReq( 401, { ok: false, message: 'Não autenticado.' }); return; }
+      if (!s) { sendJson(req, res, 401, { ok: false, message: 'Não autenticado.' }); return; }
       const p = data.progress[s.userId] || { visited: [], favorites: [], quizResults: {} };
-      sendReq( 200, { ok: true, progress: p });
+      sendJson(req, res, 200, { ok: true, progress: p });
       return;
     }
-    if (path === '/progress' && req.method === 'PUT') {
+    if (pathName === '/progress' && req.method === 'PUT') {
       const s = getSession(data, tokenFromReq(req));
-      if (!s) { sendReq( 401, { ok: false, message: 'Não autenticado.' }); return; }
+      if (!s) { sendJson(req, res, 401, { ok: false, message: 'Não autenticado.' }); return; }
       const body = await parseBody(req);
-      data.progress[s.userId] = body.progress || body;
-      writeData(data);
-      sendReq( 200, { ok: true });
+      await withWriteLock(async () => {
+        const fresh = readData();
+        fresh.progress = fresh.progress || {};
+        fresh.progress[s.userId] = body.progress || body;
+        writeData(fresh);
+      });
+      sendJson(req, res, 200, { ok: true });
       return;
     }
 
     // Presidents (public)
-    if (path === '/presidents' && req.method === 'GET') {
+    if (pathName === '/presidents' && req.method === 'GET') {
       const published = (data.presidents || []).filter(p => (p.status || 'published') === 'published');
-      sendReq( 200, { ok: true, items: published });
+      sendJson(req, res, 200, { ok: true, items: published });
       return;
     }
 
     // Admin presidents
-    if (path === '/admin/presidents' && req.method === 'GET') {
+    if (pathName === '/admin/presidents' && req.method === 'GET') {
       const s = getSession(data, tokenFromReq(req));
       const user = s ? data.users.find(u => u.id === s.userId) : null;
-      if (!user || !isAdmin(user)) { sendReq( 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
-      sendReq( 200, { ok: true, items: data.presidents || [] });
+      if (!user || !isAdmin(user)) { sendJson(req, res, 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
+      sendJson(req, res, 200, { ok: true, items: data.presidents || [] });
       return;
     }
-    if (path === '/admin/presidents' && req.method === 'POST') {
+    if (pathName === '/admin/presidents' && req.method === 'POST') {
       const s = getSession(data, tokenFromReq(req));
       const user = s ? data.users.find(u => u.id === s.userId) : null;
-      if (!user || !isAdmin(user)) { sendReq( 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
+      if (!user || !isAdmin(user)) { sendJson(req, res, 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
       const body = await parseBody(req);
       const record = body.record || body;
-      if (!record.id) { sendReq( 400, { ok: false, message: 'ID obrigatório.' }); return; }
-      const idx = (data.presidents || []).findIndex(p => p.id === record.id);
-      if (idx >= 0) data.presidents[idx] = record; else (data.presidents ||= []).push(record);
-      writeData(data);
-      sendReq( 200, { ok: true, record });
+      if (!record.id) { sendJson(req, res, 400, { ok: false, message: 'ID obrigatório.' }); return; }
+      await withWriteLock(async () => {
+        const fresh = readData();
+        const idx = (fresh.presidents || []).findIndex(p => p.id === record.id);
+        if (idx >= 0) fresh.presidents[idx] = record; else (fresh.presidents ||= []).push(record);
+        writeData(fresh);
+      });
+      sendJson(req, res, 200, { ok: true, record });
       return;
     }
-    if (path.startsWith('/admin/presidents/') && req.method === 'DELETE') {
+    if (pathName.startsWith('/admin/presidents/') && req.method === 'DELETE') {
       const s = getSession(data, tokenFromReq(req));
       const user = s ? data.users.find(u => u.id === s.userId) : null;
-      if (!user || !isAdmin(user)) { sendReq( 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
-      const id = decodeURIComponent(path.slice('/admin/presidents/'.length));
-      data.presidents = (data.presidents || []).filter(p => p.id !== id);
-      writeData(data);
-      sendReq( 200, { ok: true });
+      if (!user || !isAdmin(user)) { sendJson(req, res, 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
+      const id = decodeURIComponent(pathName.slice('/admin/presidents/'.length));
+      await withWriteLock(async () => {
+        const fresh = readData();
+        fresh.presidents = (fresh.presidents || []).filter(p => p.id !== id);
+        writeData(fresh);
+      });
+      sendJson(req, res, 200, { ok: true });
       return;
     }
 
-    sendReq( 404, { ok: false, message: 'Rota não encontrada.' });
+    sendJson(req, res, 404, { ok: false, message: 'Rota não encontrada.' });
   } catch (e) {
-    sendReq( 500, { ok: false, message: 'Erro interno: ' + e.message });
+    console.error('Erro interno:', e?.message || e);
+    sendJson(req, res, 500, { ok: false, message: 'Erro interno do servidor.' });
   }
 });
 
-// Provisionamento administrativo via CLI (executado localmente pelo responsavel).
+// Provisionamento administrativo via CLI (executado localmente pelo responsável).
 const promoteIdx = process.argv.indexOf('--promote');
 if (promoteIdx >= 0 && process.argv[promoteIdx + 1]) {
   const email = String(process.argv[promoteIdx + 1]).trim().toLowerCase();
   ensureData();
   const data = readData();
   const user = data.users.find(u => u.email === email);
-  if (!user) { console.error('Usuario nao encontrado: ' + email); process.exit(1); }
+  if (!user) {
+    console.error('Usuário não encontrado: ' + email);
+    process.exit(1);
+  }
   user.role = 'admin';
   writeData(data);
-  console.log('Usuario promovido a administrador: ' + email);
+  console.log('Usuário promovido a administrador: ' + email);
   process.exit(0);
 }
 
 server.listen(PORT, () => {
   console.log('Galeria Presidencial backend em http://localhost:' + PORT);
   console.log('Dados: ' + DATA_FILE);
-  if (ADMIN_EMAILS.size) console.log('Admins: ' + [...ADMIN_EMAILS].join(', '));
 });
