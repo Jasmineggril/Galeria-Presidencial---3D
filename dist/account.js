@@ -7,13 +7,31 @@
  */
 export const ACCOUNT_STORAGE_KEY = 'gp.account.session';
 
+export function isAllowedBackendUrl(url) {
+  if (!url) return false;
+  try {
+    const u = new URL(url, window.location.origin);
+    if (u.origin === window.location.origin) return true;
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      return /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(u.origin);
+    }
+    const allow = (window.GP_ALLOWED_BACKENDS || []);
+    if (Array.isArray(allow) && allow.includes(u.origin)) return /^https:/.test(u.protocol);
+    return false;
+  } catch (error) {
+    return false;
+  }
+}
+
 export function backendConfig() {
   const cfg = (typeof window !== 'undefined' && window.GP_BACKEND) || {};
+  const url = (cfg.url || '').replace(/\/$/, '');
+  const allowed = isAllowedBackendUrl(url);
   return {
     provider: cfg.provider || 'none',
-    url: (cfg.url || '').replace(/\/$/, ''),
+    url: allowed ? url : '',
     anonKey: cfg.anonKey || '',
-    configured: Boolean(cfg.url)
+    configured: Boolean(allowed && url && cfg.anonKey)
   };
 }
 

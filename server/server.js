@@ -17,7 +17,27 @@ const __dirname = path.dirname(__filename);
 
 const PORT = Number(process.env.PORT || 8787);
 const DATA_FILE = path.resolve(process.env.GP_DATA_FILE || path.join(__dirname, '..', 'data', 'db.json'));
-const ADMIN_EMAILS = new Set((process.env.GP_ADMIN_EMAILS || '').split(',').map(s => s.trim().toLowerCase()).filter(Boolean));
+const ADMIN_EMAILS = new Set();
+const ALLOWED_ORIGINS = new Set((process.env.GP_ALLOWED_ORIGINS || '').split(',').map(s => s.trim()).filter(Boolean));
+let writeLock = Promise.resolve();
+
+function withWriteLock(fn) {
+  const next = writeLock.then(() => fn());
+  writeLock = next.catch(() => {});
+  return next;
+}
+
+function atomicWriteData(data) {
+  const dir = path.dirname(DATA_FILE);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  const tmp = DATA_FILE + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(data, null, 2));
+  fs.renameSync(tmp, DATA_FILE);
+}
+
+function hashToken(token) {
+  return crypto.createHash('sha256').update(token).digest('hex');
+}
 
 function ensureData() {
   const dir = path.dirname(DATA_FILE);
@@ -29,12 +49,20 @@ function ensureData() {
 
 function readData() {
   ensureData();
-  try { return JSON.parse(fs.readFileSync(DATA_FILE, 'utf8')); }
-  catch (e) { return { users: [], sessions: [], progress: {}, presidents: [] }; }
+  try {
+    const raw = fs.readFileSync(DATA_FILE, 'utf8');
+    const parsed = JSON.parse(raw);
+    if (!parsed || typeof parsed !== 'object') throw new Error('invalid');
+    return { users: [], sessions: [], progress: {}, presidents: [], ...parsed };
+  } catch (e) {
+    // Do not overwrite corrupted data with an empty database.
+    console.error('Falha ao ler banco de dados; mantendo arquivo original.');
+    return { users: [], sessions: [], progress: {}, presidents: [] };
+  }
 }
 
 function writeData(data) {
-  fs.writeFileSync(DATA_FILE, JSON.stringify(data, null, 2));
+  atomicWriteData(data);
 }
 
 function hashPassword(password, salt) {
@@ -51,14 +79,28 @@ function verifyPassword(password, stored) {
   catch (e) { return false; }
 }
 
-function send(res, status, body) {
+function allowedOrigin(req) {
+  const origin = req.headers.origin || '';
+  if (!origin) return '*';
+  if (ALLOWED_ORIGINS.size === 0) {
+    // Default: same-origin only (no CORS). Allow localhost for dev.
+    if (/^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin)) return origin;
+    return null;
+  }
+  return ALLOWED_ORIGINS.has(origin) ? origin : null;
+}
+
+function sendReq( status, body, req) {
   const json = JSON.stringify(body);
-  res.writeHead(status, {
+  const origin = req ? allowedOrigin(req) : null;
+  const headers = {
     'Content-Type': 'application/json; charset=utf-8',
-    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type,Authorization'
-  });
+  };
+  if (origin) headers['Access-Control-Allow-Origin'] = origin;
+  if (origin && origin !== '*') headers['Vary'] = 'Origin';
+  res.writeHead(status, headers);
   res.end(json);
 }
 
@@ -93,15 +135,16 @@ function isAdmin(user) {
 }
 
 const server = http.createServer(async (req, res) => {
-  if (req.method === 'OPTIONS') { send(res, 204, {}); return; }
+  if (req.method === 'OPTIONS') { sendReq( 204, {}, req); return; }
   const url = new URL(req.url, 'http://' + req.headers.host);
+    const sendReq = (status, body) => send(res, status, body, req);
   const path = url.pathname;
   const data = readData();
 
   try {
     // Health
     if (path === '/health' && req.method === 'GET') {
-      send(res, 200, { ok: true, provider: 'galeria-local', configured: true });
+      sendReq( 200, { ok: true, provider: 'galeria-local', configured: true });
       return;
     }
 
@@ -112,19 +155,19 @@ const server = http.createServer(async (req, res) => {
       const email = String(body.email || '').trim().toLowerCase();
       const password = String(body.password || '');
       if (!name || !email || password.length < 6) {
-        send(res, 400, { ok: false, message: 'Nome, e-mail e senha (mín. 6 caracteres) são obrigatórios.' });
+        sendReq( 400, { ok: false, message: 'Nome, e-mail e senha (mín. 6 caracteres) são obrigatórios.' });
         return;
       }
       if (data.users.some(u => u.email === email)) {
-        send(res, 409, { ok: false, message: 'E-mail já cadastrado.' });
+        sendReq( 409, { ok: false, message: 'E-mail já cadastrado.' });
         return;
       }
-      const user = { id: crypto.randomUUID(), name, email, passwordHash: hashPassword(password), createdAt: new Date().toISOString(), role: isAdmin({ email }) ? 'admin' : 'visitor' };
+      const user = { id: crypto.randomUUID(), name, email, passwordHash: hashPassword(password), createdAt: new Date().toISOString(), role: 'visitor' };
       data.users.push(user);
       const token = crypto.randomBytes(32).toString('hex');
       data.sessions.push({ token, userId: user.id, createdAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 7*24*3600*1000).toISOString() });
       writeData(data);
-      send(res, 200, { ok: true, session: { access_token: token, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } } });
+      sendReq( 200, { ok: true, session: { access_token: token, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } } });
       return;
     }
 
@@ -135,13 +178,13 @@ const server = http.createServer(async (req, res) => {
       const password = String(body.password || '');
       const user = data.users.find(u => u.email === email);
       if (!user || !verifyPassword(password, user.passwordHash)) {
-        send(res, 401, { ok: false, message: 'E-mail ou senha inválidos.' });
+        sendReq( 401, { ok: false, message: 'E-mail ou senha inválidos.' });
         return;
       }
       const token = crypto.randomBytes(32).toString('hex');
       data.sessions.push({ token, userId: user.id, createdAt: new Date().toISOString(), expiresAt: new Date(Date.now() + 7*24*3600*1000).toISOString() });
       writeData(data);
-      send(res, 200, { ok: true, session: { access_token: token, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } } });
+      sendReq( 200, { ok: true, session: { access_token: token, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } } });
       return;
     }
 
@@ -150,7 +193,7 @@ const server = http.createServer(async (req, res) => {
       const token = tokenFromReq(req);
       const s = getSession(data, token);
       if (s) { s.revoked = true; writeData(data); }
-      send(res, 200, { ok: true });
+      sendReq( 200, { ok: true });
       return;
     }
 
@@ -161,49 +204,72 @@ const server = http.createServer(async (req, res) => {
       const user = data.users.find(u => u.email === email);
       if (user) {
         const resetToken = crypto.randomBytes(24).toString('hex');
-        user.resetToken = resetToken;
+        user.resetTokenHash = hashToken(resetToken);
         user.resetExpires = new Date(Date.now() + 3600*1000).toISOString();
+        user.resetUsed = false;
         writeData(data);
-        // Em protótipo, o token é retornado para facilitar testes locais.
-        send(res, 200, { ok: true, message: 'Se o e-mail existir, as instruções foram enviadas.', resetToken });
-      } else {
-        send(res, 200, { ok: true, message: 'Se o e-mail existir, as instruções foram enviadas.' });
       }
+      sendReq(200, { ok: true, message: 'Se o e-mail existir, as instruções foram enviadas.' });
+      return;
+    }
+
+    // Reset password (requires token sent out-of-band)
+    if (path === '/auth/reset' && req.method === 'POST') {
+      const body = await parseBody(req);
+      const token = String(body.token || '');
+      const password = String(body.password || '');
+      if (!token || password.length < 6) {
+        sendReq(400, { ok: false, message: 'Token e senha (mín. 6 caracteres) são obrigatórios.' });
+        return;
+      }
+      const user = data.users.find(u => u.resetTokenHash === hashToken(token) && !u.resetUsed);
+      if (!user || !user.resetExpires || new Date(user.resetExpires) < new Date()) {
+        sendReq(400, { ok: false, message: 'Token inválido ou expirado.' });
+        return;
+      }
+      user.passwordHash = hashPassword(password);
+      user.resetTokenHash = null;
+      user.resetExpires = null;
+      user.resetUsed = true;
+      // Revoke existing sessions
+      data.sessions = (data.sessions || []).filter(s => s.userId !== user.id);
+      writeData(data);
+      sendReq(200, { ok: true, message: 'Senha atualizada. Faça login novamente.' });
       return;
     }
 
     // Me
     if (path === '/me' && req.method === 'GET') {
       const s = getSession(data, tokenFromReq(req));
-      if (!s) { send(res, 401, { ok: false, message: 'Não autenticado.' }); return; }
+      if (!s) { sendReq( 401, { ok: false, message: 'Não autenticado.' }); return; }
       const user = data.users.find(u => u.id === s.userId);
-      if (!user) { send(res, 401, { ok: false, message: 'Usuário não encontrado.' }); return; }
-      send(res, 200, { ok: true, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } });
+      if (!user) { sendReq( 401, { ok: false, message: 'Usuário não encontrado.' }); return; }
+      sendReq( 200, { ok: true, user: { id: user.id, email: user.email, user_metadata: { display_name: user.name, role: user.role } } });
       return;
     }
 
     // Progress
     if (path === '/progress' && req.method === 'GET') {
       const s = getSession(data, tokenFromReq(req));
-      if (!s) { send(res, 401, { ok: false, message: 'Não autenticado.' }); return; }
+      if (!s) { sendReq( 401, { ok: false, message: 'Não autenticado.' }); return; }
       const p = data.progress[s.userId] || { visited: [], favorites: [], quizResults: {} };
-      send(res, 200, { ok: true, progress: p });
+      sendReq( 200, { ok: true, progress: p });
       return;
     }
     if (path === '/progress' && req.method === 'PUT') {
       const s = getSession(data, tokenFromReq(req));
-      if (!s) { send(res, 401, { ok: false, message: 'Não autenticado.' }); return; }
+      if (!s) { sendReq( 401, { ok: false, message: 'Não autenticado.' }); return; }
       const body = await parseBody(req);
       data.progress[s.userId] = body.progress || body;
       writeData(data);
-      send(res, 200, { ok: true });
+      sendReq( 200, { ok: true });
       return;
     }
 
     // Presidents (public)
     if (path === '/presidents' && req.method === 'GET') {
       const published = (data.presidents || []).filter(p => (p.status || 'published') === 'published');
-      send(res, 200, { ok: true, items: published });
+      sendReq( 200, { ok: true, items: published });
       return;
     }
 
@@ -211,39 +277,53 @@ const server = http.createServer(async (req, res) => {
     if (path === '/admin/presidents' && req.method === 'GET') {
       const s = getSession(data, tokenFromReq(req));
       const user = s ? data.users.find(u => u.id === s.userId) : null;
-      if (!user || !isAdmin(user)) { send(res, 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
-      send(res, 200, { ok: true, items: data.presidents || [] });
+      if (!user || !isAdmin(user)) { sendReq( 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
+      sendReq( 200, { ok: true, items: data.presidents || [] });
       return;
     }
     if (path === '/admin/presidents' && req.method === 'POST') {
       const s = getSession(data, tokenFromReq(req));
       const user = s ? data.users.find(u => u.id === s.userId) : null;
-      if (!user || !isAdmin(user)) { send(res, 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
+      if (!user || !isAdmin(user)) { sendReq( 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
       const body = await parseBody(req);
       const record = body.record || body;
-      if (!record.id) { send(res, 400, { ok: false, message: 'ID obrigatório.' }); return; }
+      if (!record.id) { sendReq( 400, { ok: false, message: 'ID obrigatório.' }); return; }
       const idx = (data.presidents || []).findIndex(p => p.id === record.id);
       if (idx >= 0) data.presidents[idx] = record; else (data.presidents ||= []).push(record);
       writeData(data);
-      send(res, 200, { ok: true, record });
+      sendReq( 200, { ok: true, record });
       return;
     }
     if (path.startsWith('/admin/presidents/') && req.method === 'DELETE') {
       const s = getSession(data, tokenFromReq(req));
       const user = s ? data.users.find(u => u.id === s.userId) : null;
-      if (!user || !isAdmin(user)) { send(res, 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
+      if (!user || !isAdmin(user)) { sendReq( 403, { ok: false, message: 'Acesso administrativo negado.' }); return; }
       const id = decodeURIComponent(path.slice('/admin/presidents/'.length));
       data.presidents = (data.presidents || []).filter(p => p.id !== id);
       writeData(data);
-      send(res, 200, { ok: true });
+      sendReq( 200, { ok: true });
       return;
     }
 
-    send(res, 404, { ok: false, message: 'Rota não encontrada.' });
+    sendReq( 404, { ok: false, message: 'Rota não encontrada.' });
   } catch (e) {
-    send(res, 500, { ok: false, message: 'Erro interno: ' + e.message });
+    sendReq( 500, { ok: false, message: 'Erro interno: ' + e.message });
   }
 });
+
+// Provisionamento administrativo via CLI (executado localmente pelo responsavel).
+const promoteIdx = process.argv.indexOf('--promote');
+if (promoteIdx >= 0 && process.argv[promoteIdx + 1]) {
+  const email = String(process.argv[promoteIdx + 1]).trim().toLowerCase();
+  ensureData();
+  const data = readData();
+  const user = data.users.find(u => u.email === email);
+  if (!user) { console.error('Usuario nao encontrado: ' + email); process.exit(1); }
+  user.role = 'admin';
+  writeData(data);
+  console.log('Usuario promovido a administrador: ' + email);
+  process.exit(0);
+}
 
 server.listen(PORT, () => {
   console.log('Galeria Presidencial backend em http://localhost:' + PORT);
